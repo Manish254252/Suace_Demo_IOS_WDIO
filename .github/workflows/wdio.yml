@@ -1,117 +1,63 @@
-name: WDIO Appium Android Tests & Publish Allure
+name: Run WDIO Appium Tests
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
+    branches:
+      - main
 
 jobs:
-  wdio-android:
+  wdio-tests:
     runs-on: ubuntu-latest
-    env:
-      ANDROID_HOME: ${{ github.workspace }}/android-sdk
-      PATH: ${{ github.workspace }}/android-sdk/cmdline-tools/latest/bin:${{ github.workspace }}/android-sdk/platform-tools:$PATH
+    # services:
+      # Optional: If you need an Android emulator container
+      # You can also launch the emulator manually in steps below
 
     steps:
-      # -------------------------
-      # Checkout code using Git (avoids tar)
-      # -------------------------
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # ensures full clone, avoids tar extraction
 
-      # -------------------------
-      # Install basic tools
-      # -------------------------
-      - name: Install required packages
-        run: sudo apt-get update && sudo apt-get install -y wget unzip openjdk-11-jdk
-
-      # -------------------------
-      # Setup Node.js
-      # -------------------------
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: 20
 
-      # -------------------------
-      # Install npm dependencies
-      # -------------------------
-      - name: Install npm dependencies
-        run: npm ci
+      - name: Cache Node modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-      # -------------------------
-      # Download Android SDK Command-line Tools
-      # -------------------------
-      - name: Download Android SDK Command-line Tools
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Android SDK
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          target: google_apis
+          arch: x86_64
+          force-avd-creation: true
+          emulator-options: "-no-window -no-audio -gpu swiftshader_indirect"
+          script: |
+            echo "Android emulator is ready!"
+
+      - name: Start Appium server
         run: |
-          mkdir -p $ANDROID_HOME/cmdline-tools
-          wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O cmdline-tools.zip
-          unzip cmdline-tools.zip -d $ANDROID_HOME/cmdline-tools
-          mkdir -p $ANDROID_HOME/cmdline-tools/latest
-          mv $ANDROID_HOME/cmdline-tools/cmdline-tools/* $ANDROID_HOME/cmdline-tools/latest
-        shell: bash
+          npm install -g appium
+          appium &  # start Appium in background
+          sleep 10  # wait for server to start
 
-      # -------------------------
-      # Accept Android SDK Licenses
-      # -------------------------
-      - name: Accept Android SDK Licenses
-        run: |
-          mkdir -p $ANDROID_HOME/licenses
-          echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > $ANDROID_HOME/licenses/android-sdk-license
-          echo "84831b9409646a918e30573bab4c9c91346d8ab1" > $ANDROID_HOME/licenses/android-sdk-preview-license
-        shell: bash
-
-      # -------------------------
-      # Install Android SDK Packages
-      # -------------------------
-      - name: Install Android SDK Packages
-        run: |
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
-            "platform-tools" \
-            "platforms;android-33" \
-            "emulator" \
-            "system-images;android-33;google_apis;x86_64"
-        shell: bash
-
-      # -------------------------
-      # Create & Start Android Emulator
-      # -------------------------
-      - name: Create & Start Android Emulator
-        run: |
-          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n testAVD -k "system-images;android-33;google_apis;x86_64" --force
-          $ANDROID_HOME/emulator/emulator -avd testAVD -no-window -no-audio -no-snapshot &
-          adb wait-for-device
-          adb shell input keyevent 82
-        shell: bash
-
-      # -------------------------
-      # Start Appium
-      # -------------------------
-      - name: Start Appium
-        run: npx appium &
-        shell: bash
-
-      # -------------------------
-      # Run WDIO tests
-      # -------------------------
       - name: Run WDIO tests
-        run: npm run test
-        shell: bash
+        run: npx wdio run wdio.conf.js
 
-      # -------------------------
-      # Generate Allure Report
-      # -------------------------
-      - name: Generate Allure Report
-        run: npm run allure:generate
-        shell: bash
-
-      # -------------------------
-      # Publish Allure Report to GitHub Pages
-      # -------------------------
-      - name: Publish Allure Report
-        run: npm run allure:publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: bash
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: wdio-results
+          path: ./reports
