@@ -1,0 +1,56 @@
+name: WDIO Appium Tests & Publish Allure
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  wdio-android:
+    runs-on: ubuntu-latest
+    env:
+      ANDROID_HOME: /usr/local/android-sdk
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Optional: install Android SDK and emulator
+      - name: Install Android SDK
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y unzip wget openjdk-11-jdk
+          wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O cmdline-tools.zip
+          unzip cmdline-tools.zip -d $ANDROID_HOME
+          mkdir -p $ANDROID_HOME/cmdline-tools/latest
+          mv $ANDROID_HOME/cmdline-tools/* $ANDROID_HOME/cmdline-tools/latest
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-33" "emulator" "system-images;android-33;google_apis;x86_64"
+
+      - name: Start Android Emulator
+        run: |
+          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n testAVD -k "system-images;android-33;google_apis;x86_64" --force
+          $ANDROID_HOME/emulator/emulator -avd testAVD -no-window -no-audio -no-snapshot &
+          adb wait-for-device
+          adb shell input keyevent 82
+
+      - name: Start Appium
+        run: npx appium &
+
+      - name: Run WDIO tests
+        run: npm run test
+
+      - name: Generate Allure report
+        run: npm run allure:generate
+
+      - name: Publish Allure report to GitHub Pages
+        run: npm run allure:publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
