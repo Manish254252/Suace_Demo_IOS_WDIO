@@ -14,16 +14,18 @@ jobs:
 
     steps:
       # -------------------------
-      # Install basic tools
-      # -------------------------
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y wget unzip tar openjdk-11-jdk
-
-      # -------------------------
-      # Checkout code
+      # Checkout repository (use git to avoid tar)
       # -------------------------
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # avoids tar extraction
+
+      # -------------------------
+      # Install basic tools
+      # -------------------------
+      - name: Install required packages
+        run: sudo apt-get update && sudo apt-get install -y wget unzip openjdk-11-jdk
 
       # -------------------------
       # Setup Node.js
@@ -85,7 +87,7 @@ jobs:
         shell: bash
 
       # -------------------------
-      # Start Appium Server
+      # Start Appium
       # -------------------------
       - name: Start Appium
         run: npx appium &
@@ -108,7 +110,7 @@ jobs:
       # -------------------------
       # Publish Allure Report to GitHub Pages
       # -------------------------
-      - name: Publish Allure Report to GitHub Pages
+      - name: Publish Allure Report
         run: npm run allure:publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
