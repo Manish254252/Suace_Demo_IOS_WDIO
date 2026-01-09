@@ -1,4 +1,4 @@
-name: WDIO Appium Tests & Publish Allure
+name: WDIO Appium Android Tests & Publish Allure
 
 on:
   push:
@@ -11,18 +11,37 @@ jobs:
     env:
       ANDROID_HOME: ${{ github.workspace }}/android-sdk
       PATH: ${{ github.workspace }}/android-sdk/cmdline-tools/latest/bin:${{ github.workspace }}/android-sdk/platform-tools:$PATH
+
     steps:
+      # -------------------------
+      # Install basic tools
+      # -------------------------
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y wget unzip tar openjdk-11-jdk
+
+      # -------------------------
+      # Checkout code
+      # -------------------------
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # -------------------------
+      # Setup Node.js
+      # -------------------------
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      - name: Install dependencies
+      # -------------------------
+      # Install npm dependencies
+      # -------------------------
+      - name: Install npm dependencies
         run: npm ci
 
+      # -------------------------
+      # Download Android SDK Command-line Tools
+      # -------------------------
       - name: Download Android SDK Command-line Tools
         run: |
           mkdir -p $ANDROID_HOME/cmdline-tools
@@ -32,6 +51,9 @@ jobs:
           mv $ANDROID_HOME/cmdline-tools/cmdline-tools/* $ANDROID_HOME/cmdline-tools/latest
         shell: bash
 
+      # -------------------------
+      # Accept Android SDK Licenses
+      # -------------------------
       - name: Accept Android SDK Licenses
         run: |
           mkdir -p $ANDROID_HOME/licenses
@@ -39,6 +61,9 @@ jobs:
           echo "84831b9409646a918e30573bab4c9c91346d8ab1" > $ANDROID_HOME/licenses/android-sdk-preview-license
         shell: bash
 
+      # -------------------------
+      # Install Android SDK Packages
+      # -------------------------
       - name: Install Android SDK Packages
         run: |
           $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
@@ -48,6 +73,9 @@ jobs:
             "system-images;android-33;google_apis;x86_64"
         shell: bash
 
+      # -------------------------
+      # Create & Start Android Emulator
+      # -------------------------
       - name: Create & Start Android Emulator
         run: |
           echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n testAVD -k "system-images;android-33;google_apis;x86_64" --force
@@ -56,19 +84,31 @@ jobs:
           adb shell input keyevent 82
         shell: bash
 
+      # -------------------------
+      # Start Appium Server
+      # -------------------------
       - name: Start Appium
         run: npx appium &
         shell: bash
 
+      # -------------------------
+      # Run WDIO tests
+      # -------------------------
       - name: Run WDIO tests
         run: npm run test
         shell: bash
 
-      - name: Generate Allure report
+      # -------------------------
+      # Generate Allure Report
+      # -------------------------
+      - name: Generate Allure Report
         run: npm run allure:generate
         shell: bash
 
-      - name: Publish Allure report to GitHub Pages
+      # -------------------------
+      # Publish Allure Report to GitHub Pages
+      # -------------------------
+      - name: Publish Allure Report to GitHub Pages
         run: npm run allure:publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
