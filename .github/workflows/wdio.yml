@@ -14,12 +14,12 @@ jobs:
 
     steps:
       # -------------------------
-      # Checkout repository (use git to avoid tar)
+      # Checkout code using Git (avoids tar)
       # -------------------------
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # avoids tar extraction
+          fetch-depth: 0  # ensures full clone, avoids tar extraction
 
       # -------------------------
       # Install basic tools
