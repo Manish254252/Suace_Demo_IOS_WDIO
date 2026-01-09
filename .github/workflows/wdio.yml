@@ -9,7 +9,8 @@ jobs:
   wdio-android:
     runs-on: ubuntu-latest
     env:
-      ANDROID_HOME: /usr/local/android-sdk
+      ANDROID_HOME: ${{ github.workspace }}/android-sdk
+      PATH: ${{ github.workspace }}/android-sdk/cmdline-tools/latest/bin:${{ github.workspace }}/android-sdk/platform-tools:$PATH
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -21,17 +22,25 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-      - name: Accept Android SDK licenses
+
+      - name: Download Android SDK Command-line Tools
+        run: |
+          mkdir -p $ANDROID_HOME/cmdline-tools
+          wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O cmdline-tools.zip
+          unzip cmdline-tools.zip -d $ANDROID_HOME/cmdline-tools
+          mkdir -p $ANDROID_HOME/cmdline-tools/latest
+          mv $ANDROID_HOME/cmdline-tools/cmdline-tools/* $ANDROID_HOME/cmdline-tools/latest
+        shell: bash
+
+      - name: Accept Android SDK Licenses
         run: |
           mkdir -p $ANDROID_HOME/licenses
           echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > $ANDROID_HOME/licenses/android-sdk-license
           echo "84831b9409646a918e30573bab4c9c91346d8ab1" > $ANDROID_HOME/licenses/android-sdk-preview-license
         shell: bash
 
-      # Optional: install Android SDK and emulator
-      - name: Install Android SDK packages
+      - name: Install Android SDK Packages
         run: |
-          export ANDROID_HOME=$HOME/android-sdk
           $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
             "platform-tools" \
             "platforms;android-33" \
@@ -39,28 +48,28 @@ jobs:
             "system-images;android-33;google_apis;x86_64"
         shell: bash
 
-
-
-      - name: Start Android Emulator
+      - name: Create & Start Android Emulator
         run: |
-          export ANDROID_HOME=$HOME/android-sdk
           echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n testAVD -k "system-images;android-33;google_apis;x86_64" --force
           $ANDROID_HOME/emulator/emulator -avd testAVD -no-window -no-audio -no-snapshot &
           adb wait-for-device
           adb shell input keyevent 82
         shell: bash
 
-
       - name: Start Appium
         run: npx appium &
+        shell: bash
 
       - name: Run WDIO tests
         run: npm run test
+        shell: bash
 
       - name: Generate Allure report
         run: npm run allure:generate
+        shell: bash
 
       - name: Publish Allure report to GitHub Pages
         run: npm run allure:publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
