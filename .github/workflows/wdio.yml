@@ -24,7 +24,7 @@ jobs:
           node-version: 20
 
       # 3. Cache node_modules
-      - name: Cache Node modules
+      - name: Cache node_modules
         uses: actions/cache@v3
         with:
           path: node_modules
@@ -36,7 +36,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 5. Set up Android emulator
+      # 5. Set up Android Emulator with reliable boot
       - name: Set up Android Emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -44,22 +44,40 @@ jobs:
           target: google_apis
           arch: x86_64
           force-avd-creation: true
-          emulator-options: "-no-window -no-audio -gpu swiftshader_indirect"
+          emulator-options: "-no-window -no-audio -gpu swiftshader_indirect -no-snapshot"
           script: |
-            echo "Android emulator ready"
+            echo "Waiting for emulator to boot..."
+            adb wait-for-device
+            boot_completed=$(adb shell getprop sys.boot_completed | tr -d '\r')
+            count=0
+            until [ "$boot_completed" = "1" ] || [ $count -gt 30 ]; do
+              sleep 5
+              boot_completed=$(adb shell getprop sys.boot_completed | tr -d '\r')
+              count=$((count+1))
+              echo "Waiting for emulator... ($count)"
+            done
+            if [ "$boot_completed" != "1" ]; then
+              echo "Emulator failed to boot in time."
+              exit 1
+            fi
+            echo "Emulator booted successfully!"
 
-      # 6. Start Appium server
+      # 6. Install APK on emulator (optional but faster)
+      - name: Install APK
+        run: adb install -r apps/SauceLabs.app.2.7.1.apk
+
+      # 7. Start Appium server
       - name: Start Appium
         run: |
           npm install -g appium
-          appium &       # Start Appium in background
-          sleep 10       # Wait for server to start
+          appium &      # Start Appium in background
+          sleep 10      # Wait for server to start
 
-      # 7. Run WDIO tests
+      # 8. Run WDIO tests
       - name: Run WDIO Tests
         run: npx wdio run wdio.conf.js
 
-      # 8. Upload test results (v4)
+      # 9. Upload test results
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
