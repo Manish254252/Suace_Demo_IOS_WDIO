@@ -1,0 +1,29 @@
+{
+  "name": "wdio-ts-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "wdio run wdio.conf.ts",
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure:publish": "gh-pages -d allure-report -b gh-pages"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "@wdio/allure-reporter": "^9.22.0",
+    "@wdio/appium-service": "^9.23.0",
+    "@wdio/cli": "^9.23.0",
+    "@wdio/globals": "^9.23.0",
+    "@wdio/local-runner": "^9.23.0",
+    "@wdio/mocha-framework": "^9.23.0",
+    "@wdio/spec-reporter": "^9.20.0",
+    "@wdio/visual-service": "^9.1.0",
+    "appium": "^3.1.2",
+    "appium-uiautomator2-driver": "^6.7.8",
+    "expect-webdriverio": "^5.6.1"
+  }
+}
