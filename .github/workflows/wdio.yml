@@ -21,6 +21,12 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+      - name: Accept Android SDK licenses
+        run: |
+          mkdir -p $ANDROID_HOME/licenses
+          echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > $ANDROID_HOME/licenses/android-sdk-license
+          echo "84831b9409646a918e30573bab4c9c91346d8ab1" > $ANDROID_HOME/licenses/android-sdk-preview-license
+        shell: bash
 
       # Optional: install Android SDK and emulator
       - name: Install Android SDK
