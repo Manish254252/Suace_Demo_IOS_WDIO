@@ -34,20 +34,31 @@ jobs:
           sdkmanager "system-images;android-${API_LEVEL};${ANDROID_TARGET};${ANDROID_ARCH}"
           sdkmanager "platform-tools" "emulator"
 
+      - name: Set AVD env
+        run: |
+          echo "ANDROID_AVD_HOME=$HOME/.android/avd" >> $GITHUB_ENV
+          mkdir -p $HOME/.android/avd
+
+      - name: Install emulator image
+        run: |
+          sdkmanager "platform-tools" "emulator" \
+            "system-images;android-33;google_apis;x86_64"
+
       - name: Create AVD
         run: |
           echo "no" | avdmanager create avd \
-            --name $EMULATOR_NAME \
-            --package "system-images;android-${API_LEVEL};${ANDROID_TARGET};${ANDROID_ARCH}" \
-            --device "pixel"
+            --name android-emulator \
+            --package "system-images;android-33;google_apis;x86_64" \
+            --device pixel
+
+      - name: Verify AVD
+        run: emulator -list-avds
 
       - name: Start emulator
         run: |
-          $ANDROID_HOME/emulator/emulator \
-            -avd $EMULATOR_NAME \
-            -no-window \
-            -no-audio \
-            -gpu swiftshader_indirect &
+          emulator -avd android-emulator \
+            -no-window -no-audio -gpu swiftshader_indirect &
+
 
       - name: Wait for emulator
         run: |
