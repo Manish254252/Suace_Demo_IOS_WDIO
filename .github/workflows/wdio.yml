@@ -60,17 +60,30 @@ jobs:
       - name: Create Android Virtual Device
         run: |
           echo "no" | avdmanager create avd \
-            --name $EMULATOR_NAME \
-            --package "system-images;android-${API_LEVEL};${ANDROID_TARGET};${ANDROID_ARCH}" \
-            --device "pixel"
+          --name $EMULATOR_NAME \
+          --package "system-images;android-${API_LEVEL};${ANDROID_TARGET};arm64-v8a" \
+          --device "pixel" \
+          --force
 
-      # 9️⃣ Start emulator headless
+        # 9️⃣ Start emulator headless
       - name: Start Emulator
         run: |
           if [ "$ARCH" = "x86_64" ]; then
-            $ANDROID_HOME/emulator/emulator -avd $EMULATOR_NAME -no-window -no-audio -gpu host &
+            echo "Starting x86_64 emulator with software GPU"
+            $ANDROID_HOME/emulator/emulator \
+              -avd $EMULATOR_NAME \
+              -no-window \
+              -no-audio \
+              -gpu swiftshader_indirect \
+              -accel off &
           else
-            $ANDROID_HOME/emulator/emulator -avd $EMULATOR_NAME -no-window -no-audio -gpu swiftshader_indirect -no-accel &
+            echo "Starting arm64 emulator with software GPU"
+            $ANDROID_HOME/emulator/emulator \
+              -avd $EMULATOR_NAME \
+              -no-window \
+              -no-audio \
+              -gpu swiftshader_indirect \
+              -accel off &
           fi
 
       # 🔟 Wait for emulator to fully boot
