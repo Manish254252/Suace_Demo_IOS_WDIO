@@ -26,7 +26,7 @@ export const config: WebdriverIO.Config = {
 
         // APK
         'appium:app': 'apps/SauceLabs.app.2.7.1.apk',
-        'appium:appActivity': '.MainActivity',
+        'appium:appActivity': '.SplashActivity',
 
 
         // Stability flags
