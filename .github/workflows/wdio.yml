@@ -45,17 +45,18 @@ jobs:
           echo "ANDROID_AVD_HOME=$HOME/.android/avd" >> $GITHUB_ENV
           mkdir -p $HOME/.android/avd
 
-      - name: Install emulator image
+      - name: Install system image
         run: |
           sdkmanager "platform-tools" "emulator" \
-            "system-images;android-33;google_apis;x86_64"
+            "system-images;android-33;google_apis;arm64-v8a"
 
       - name: Create AVD
         run: |
           echo "no" | avdmanager create avd \
             --name android-emulator \
-            --package "system-images;android-33;google_apis;x86_64" \
+            --package "system-images;android-33;google_apis;arm64-v8a" \
             --device pixel
+
 
       - name: Verify AVD
         run: emulator -list-avds
