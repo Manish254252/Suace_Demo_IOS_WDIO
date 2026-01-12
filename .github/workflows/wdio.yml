@@ -57,13 +57,15 @@ jobs:
       # 8️⃣ Start emulator headless with software GPU
       - name: Start Emulator
         run: |
-          echo "Starting emulator with software GPU (swiftshader_indirect)"
-          $ANDROID_HOME/emulator/emulator \
-            -avd $EMULATOR_NAME \
-            -no-window \
-            -no-audio \
-            -gpu swiftshader_indirect \
-            -accel off &
+         $ANDROID_HOME/emulator/emulator \
+          -avd $EMULATOR_NAME \
+          -no-window \
+          -no-audio \
+          -gpu swiftshader_indirect \
+          -accel off \
+          -memory 2048 \
+          -cores 4 &
+
 
       # 9️⃣ Wait for emulator to fully boot
       - name: Wait for Emulator Boot
