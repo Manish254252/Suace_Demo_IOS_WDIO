@@ -33,7 +33,7 @@ export const config: WebdriverIO.Config = {
         platformName: 'Android',
         'appium:deviceName': 'emulator-5554',
         "appium:automationName": 'UiAutomator2',
-        "appium:app": './apps/Android.SauceLabs.apk',
+        "appium:app": 'apps/SauceLabs.app.2.7.1.apk',
 
         // Increase timeouts
         "appium:adbExecTimeout": 60000,               // 60s for ADB commands like install/uninstall
