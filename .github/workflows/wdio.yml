@@ -4,9 +4,8 @@ on:
   workflow_dispatch:
 
 env:
-  ANDROID_HOME: /usr/local/share/android/sdk
+  ANDROID_HOME: /Users/runner/Library/Android/sdk
   API_LEVEL: 33
-  ANDROID_ARCH: x86_64
   ANDROID_TARGET: google_apis
   EMULATOR_NAME: android-emulator
 
@@ -17,55 +16,62 @@ jobs:
 
     steps:
       # 1️⃣ Checkout repository
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       # 2️⃣ Setup Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
 
       # 3️⃣ Install npm dependencies
-      - name: Install dependencies
-        run: npm ci
+      - run: npm ci
 
-      # 4️⃣ Setup Android SDK
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+      # 4️⃣ Detect runner architecture
+      - name: Detect CPU architecture
+        id: arch
+        run: |
+          echo "ARCH=$(uname -m)" >> $GITHUB_ENV
+
+      # 5️⃣ Set system image based on architecture
+      - name: Set Android system image
+        run: |
+          if [ "${ARCH}" = "arm64" ]; then
+            echo "ANDROID_ARCH=arm64-v8a" >> $GITHUB_ENV
+          else
+            echo "ANDROID_ARCH=x86_64" >> $GITHUB_ENV
+          fi
+          echo "Selected system image: $ANDROID_ARCH"
+
+      # 6️⃣ Setup Android SDK
+      - uses: android-actions/setup-android@v3
         with:
           api-level: ${{ env.API_LEVEL }}
           target: ${{ env.ANDROID_TARGET }}
           arch: ${{ env.ANDROID_ARCH }}
           force-accept-licenses: true
 
-      # 5️⃣ Install emulator and platform-tools
-      - name: Install emulator & tools
-        run: |
+      # 7️⃣ Install emulator & system image
+      - run: |
           sdkmanager "platform-tools" "emulator" \
             "system-images;android-${API_LEVEL};${ANDROID_TARGET};${ANDROID_ARCH}"
 
-      # 6️⃣ Create AVD
-      - name: Create AVD
-        run: |
+      # 8️⃣ Create AVD
+      - run: |
           echo "no" | avdmanager create avd \
             --name $EMULATOR_NAME \
             --package "system-images;android-${API_LEVEL};${ANDROID_TARGET};${ANDROID_ARCH}" \
             --device "pixel"
 
-      # 7️⃣ Start emulator
-      - name: Start emulator
-        run: |
+      # 9️⃣ Start emulator
+      - run: |
           $ANDROID_HOME/emulator/emulator \
             -avd $EMULATOR_NAME \
             -no-window \
             -no-audio \
-            -gpu host \
-            -accel hvf &
-          
-      # 8️⃣ Wait for emulator to fully boot
-      - name: Wait for emulator
-        run: |
+            -gpu host &
+      
+      # 🔟 Wait for emulator to fully boot
+      - run: |
           adb wait-for-device
           while [[ "$(adb shell getprop sys.boot_completed | tr -d '\r')" != "1" ]]; do
             echo "Waiting for emulator boot..."
@@ -73,13 +79,11 @@ jobs:
           done
           adb devices
 
-      # 9️⃣ Start Appium server
-      - name: Start Appium
-        run: |
+      # 1️⃣1️⃣ Start Appium server
+      - run: |
           npm install -g appium
           appium --log-level error &
           sleep 10
 
-      # 🔟 Run WDIO tests
-      - name: Run WDIO tests
-        run: npx wdio run wdio.conf.ts
+      # 1️⃣2️⃣ Run WDIO tests
+      - run: npx wdio run wdio.conf.ts
