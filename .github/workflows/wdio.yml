@@ -3,12 +3,6 @@ name: Android Emulator WDIO Tests
 on:
   workflow_dispatch:
 
-env:
-  ANDROID_HOME: /Users/runner/Library/Android/sdk
-  API_LEVEL: 33
-  ANDROID_TARGET: google_apis
-  EMULATOR_NAME: android-emulator
-
 jobs:
   wdio-android:
     runs-on: macos-latest
@@ -18,77 +12,16 @@ jobs:
       # 1️⃣ Checkout repository
       - uses: actions/checkout@v4
 
-      # 2️⃣ Setup Node.js
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
-      # 3️⃣ Install npm dependencies
-      - run: npm ci
-
-      # 4️⃣ Set Android system image to x86_64 (software-emulated)
-      - name: Set Android system image
-        run: |
-          echo "ANDROID_ARCH=x86_64" >> $GITHUB_ENV
-          echo "Selected system image: x86_64 (software-emulated)"
-
-      # 5️⃣ Setup Android SDK
-      - uses: android-actions/setup-android@v3
-        with:
-          api-level: ${{ env.API_LEVEL }}
-          target: ${{ env.ANDROID_TARGET }}
-          arch: ${{ env.ANDROID_ARCH }}
-          force-accept-licenses: true
-
-      # 6️⃣ Install emulator & system image
-      - name: Install Emulator & System Image
-        run: |
-          sdkmanager "platform-tools" "emulator" "system-images;android-${API_LEVEL};${ANDROID_TARGET};${ANDROID_ARCH}"
-
-      # 7️⃣ Create AVD
-      - name: Create Android Virtual Device
-        run: |
-          echo "no" | avdmanager create avd \
-            --name $EMULATOR_NAME \
-            --package "system-images;android-${API_LEVEL};${ANDROID_TARGET};${ANDROID_ARCH}" \
-            --device "pixel" \
-            --force
-
-      # 8️⃣ Start emulator headless with software GPU
-      - name: Start Emulator
-        run: |
-         $ANDROID_HOME/emulator/emulator \
-          -avd $EMULATOR_NAME \
-          -no-window \
-          -no-audio \
-          -gpu swiftshader_indirect \
-          -accel off \
-          -memory 2048 \
-          -cores 4 &
-
-
-      # 9️⃣ Wait for emulator to fully boot
-      - name: Wait for Emulator Boot
-        run: |
-          adb wait-for-device
-          timeout=300  # 5 minutes
-          elapsed=0
-          while [[ "$(adb shell getprop sys.boot_completed | tr -d '\r')" != "1" ]]; do
-            echo "Waiting for emulator boot..."
-            sleep 5
-            elapsed=$((elapsed+5))
-            if [ $elapsed -ge $timeout ]; then
-              echo "Emulator failed to boot in 5 minutes!"
-              exit 1
-            fi
-          done
-          adb devices
+      # 2️⃣ Set up Android Emulator
+      
+      - name: Android Emulator Runner
+        uses: ReactiveCircus/android-emulator-runner@v2.35.0
 
       # 🔟 Start Appium server
       - name: Start Appium Server
         run: |
           npm install -g appium
-          appium --log-level error --allow-insecure=chromedriver_autodownload & 
+          appium --log-level error --allow-insecure=chromedriver_autodownload &
           sleep 10
 
       # 1️⃣1️⃣ Run WDIO tests
