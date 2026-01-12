@@ -57,7 +57,8 @@ jobs:
 
             # Install APK
             echo "Installing APK..."
-            adb install -r apps/SauceLabs.app.2.7.1.apk
+            # adb install -r apps/SauceLabs.app.2.7.1.apk
+            adb install -r -d --no-streaming apps/SauceLabs.app.2.7.1.apk
 
             # Run WDIO tests using local Appium
             echo "Preparing Appium driver..."
