@@ -26,24 +26,13 @@ jobs:
       # 3️⃣ Install npm dependencies
       - run: npm ci
 
-      # 4️⃣ Detect runner architecture
-      - name: Detect CPU architecture
-        id: arch
-        run: |
-          echo "ARCH=$(uname -m)" >> $GITHUB_ENV
-          echo "Detected architecture: $(uname -m)"
-
-      # 5️⃣ Set Android system image based on architecture
+      # 4️⃣ Set Android system image to x86_64 (software-emulated)
       - name: Set Android system image
         run: |
-          if [ "${ARCH}" = "arm64" ]; then
-            echo "ANDROID_ARCH=arm64-v8a" >> $GITHUB_ENV
-          else
-            echo "ANDROID_ARCH=x86_64" >> $GITHUB_ENV
-          fi
-          echo "Selected system image: $ANDROID_ARCH"
+          echo "ANDROID_ARCH=x86_64" >> $GITHUB_ENV
+          echo "Selected system image: x86_64 (software-emulated)"
 
-      # 6️⃣ Setup Android SDK
+      # 5️⃣ Setup Android SDK
       - uses: android-actions/setup-android@v3
         with:
           api-level: ${{ env.API_LEVEL }}
@@ -51,42 +40,32 @@ jobs:
           arch: ${{ env.ANDROID_ARCH }}
           force-accept-licenses: true
 
-      # 7️⃣ Install emulator and system image
+      # 6️⃣ Install emulator & system image
       - name: Install Emulator & System Image
         run: |
           sdkmanager "platform-tools" "emulator" "system-images;android-${API_LEVEL};${ANDROID_TARGET};${ANDROID_ARCH}"
 
-      # 8️⃣ Create AVD
+      # 7️⃣ Create AVD
       - name: Create Android Virtual Device
         run: |
           echo "no" | avdmanager create avd \
-          --name $EMULATOR_NAME \
-          --package "system-images;android-${API_LEVEL};${ANDROID_TARGET};arm64-v8a" \
-          --device "pixel" \
-          --force
+            --name $EMULATOR_NAME \
+            --package "system-images;android-${API_LEVEL};${ANDROID_TARGET};${ANDROID_ARCH}" \
+            --device "pixel" \
+            --force
 
-        # 9️⃣ Start emulator headless
+      # 8️⃣ Start emulator headless with software GPU
       - name: Start Emulator
         run: |
-          if [ "$ARCH" = "x86_64" ]; then
-            echo "Starting x86_64 emulator with software GPU"
-            $ANDROID_HOME/emulator/emulator \
-              -avd $EMULATOR_NAME \
-              -no-window \
-              -no-audio \
-              -gpu swiftshader_indirect \
-              -accel off &
-          else
-            echo "Starting arm64 emulator with software GPU"
-            $ANDROID_HOME/emulator/emulator \
-              -avd $EMULATOR_NAME \
-              -no-window \
-              -no-audio \
-              -gpu swiftshader_indirect \
-              -accel off &
-          fi
+          echo "Starting emulator with software GPU (swiftshader_indirect)"
+          $ANDROID_HOME/emulator/emulator \
+            -avd $EMULATOR_NAME \
+            -no-window \
+            -no-audio \
+            -gpu swiftshader_indirect \
+            -accel off &
 
-      # 🔟 Wait for emulator to fully boot
+      # 9️⃣ Wait for emulator to fully boot
       - name: Wait for Emulator Boot
         run: |
           adb wait-for-device
@@ -103,13 +82,13 @@ jobs:
           done
           adb devices
 
-      # 1️⃣1️⃣ Start Appium server
+      # 🔟 Start Appium server
       - name: Start Appium Server
         run: |
           npm install -g appium
-          appium --log-level error --allow-insecure=chromedriver_autodownload &
+          appium --log-level error --allow-insecure=chromedriver_autodownload & 
           sleep 10
 
-      # 1️⃣2️⃣ Run WDIO tests
+      # 1️⃣1️⃣ Run WDIO tests
       - name: Run WDIO Tests
         run: npx wdio run wdio.conf.ts
