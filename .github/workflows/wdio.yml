@@ -12,7 +12,7 @@ env:
 jobs:
   wdio-android:
     runs-on: macos-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
 
     steps:
       # 1️⃣ Checkout repository
@@ -31,8 +31,9 @@ jobs:
         id: arch
         run: |
           echo "ARCH=$(uname -m)" >> $GITHUB_ENV
+          echo "Detected architecture: $(uname -m)"
 
-      # 5️⃣ Set system image based on architecture
+      # 5️⃣ Set Android system image based on architecture
       - name: Set Android system image
         run: |
           if [ "${ARCH}" = "arm64" ]; then
@@ -50,42 +51,52 @@ jobs:
           arch: ${{ env.ANDROID_ARCH }}
           force-accept-licenses: true
 
-      # 7️⃣ Install emulator & system image
-      - run: |
-          sdkmanager "platform-tools" "emulator" \
-            "system-images;android-${API_LEVEL};${ANDROID_TARGET};${ANDROID_ARCH}"
+      # 7️⃣ Install emulator and system image
+      - name: Install Emulator & System Image
+        run: |
+          sdkmanager "platform-tools" "emulator" "system-images;android-${API_LEVEL};${ANDROID_TARGET};${ANDROID_ARCH}"
 
       # 8️⃣ Create AVD
-      - run: |
+      - name: Create Android Virtual Device
+        run: |
           echo "no" | avdmanager create avd \
             --name $EMULATOR_NAME \
             --package "system-images;android-${API_LEVEL};${ANDROID_TARGET};${ANDROID_ARCH}" \
             --device "pixel"
 
-      # 9️⃣ Start emulator
-      - run: |
-          $ANDROID_HOME/emulator/emulator \
-          -avd $EMULATOR_NAME \
-          -no-window \
-          -no-audio \
-          -gpu swiftshader_indirect \
-          -no-accel &
+      # 9️⃣ Start emulator headless
+      - name: Start Emulator
+        run: |
+          if [ "$ARCH" = "x86_64" ]; then
+            $ANDROID_HOME/emulator/emulator -avd $EMULATOR_NAME -no-window -no-audio -gpu host &
+          else
+            $ANDROID_HOME/emulator/emulator -avd $EMULATOR_NAME -no-window -no-audio -gpu swiftshader_indirect -no-accel &
+          fi
 
-      
       # 🔟 Wait for emulator to fully boot
-      - run: |
+      - name: Wait for Emulator Boot
+        run: |
           adb wait-for-device
+          timeout=300  # 5 minutes
+          elapsed=0
           while [[ "$(adb shell getprop sys.boot_completed | tr -d '\r')" != "1" ]]; do
             echo "Waiting for emulator boot..."
             sleep 5
+            elapsed=$((elapsed+5))
+            if [ $elapsed -ge $timeout ]; then
+              echo "Emulator failed to boot in 5 minutes!"
+              exit 1
+            fi
           done
           adb devices
 
       # 1️⃣1️⃣ Start Appium server
-      - run: |
+      - name: Start Appium Server
+        run: |
           npm install -g appium
-          appium --log-level error &
+          appium --log-level error --allow-insecure=chromedriver_autodownload &
           sleep 10
 
       # 1️⃣2️⃣ Run WDIO tests
-      - run: npx wdio run wdio.conf.ts
+      - name: Run WDIO Tests
+        run: npx wdio run wdio.conf.ts
