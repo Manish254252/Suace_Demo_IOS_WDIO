@@ -16,11 +16,15 @@ class LoginPage {
         await this.loginButton.click();
     }
     async fillUsername() {
+        console.log(await driver.getCurrentActivity());
+        console.log(await driver.getPageSource());
         await this.userName.waitForDisplayed({ timeout: 30000 });
         await this.userName.click();
         await this.userName.setValue("standard_user")
     }
     async fillPassword() {
+        console.log(await driver.getCurrentActivity());
+        console.log(await driver.getPageSource());
         await this.password.waitForDisplayed({ timeout: 30000 });
         await this.password.click();
         await this.password.setValue("secret_sauce")
