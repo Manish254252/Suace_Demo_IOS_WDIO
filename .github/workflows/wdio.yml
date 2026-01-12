@@ -1,41 +1,87 @@
-name: Android Emulator WDIO Tests
+name: Android App Automation
 
 on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
   workflow_dispatch:
+    inputs:
+      test_real_device:
+        description: 'Run tests on real device (requires self-hosted runner)'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
-  test:
+  android-emulator-tests:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        api-level: [21, 23, 29]
-        target: [default, google_apis]
+    if: github.event.inputs.test_real_device != 'true'
+
     steps:
-      - name: checkout
+      # Step 1: Checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Enable KVM
-        run: |
-          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-          sudo udevadm control --reload-rules
-          sudo udevadm trigger --name-match=kvm
+      # Step 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
 
-      - name: run tests
+      # Step 3: Install project dependencies (including local Appium)
+      - name: Install dependencies
+        run: npm ci
+
+      # Step 4: Setup Android SDK
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      # Step 5: Create and start emulator, wait for boot
+      - name: Start Android Emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: ${{ matrix.api-level }}
-          target: ${{ matrix.target }}
+          api-level: 30
+          target: default
           arch: x86_64
-          profile: pixel_7_pro
-          script: ./gradlew connectedCheck
+          profile: pixel_5
+          script: |
+            echo "Emulator reported boot completed. Proceeding with setup..."
+            adb devices
 
-      # 🔟 Start Appium server
-      - name: Start Appium Server
-        run: |
-          npm install -g appium
-          appium --log-level error --allow-insecure=chromedriver_autodownload &
-          sleep 10
+            # Unlock screen & disable animations
+            adb -s emulator-5554 shell input keyevent 82
+            adb -s emulator-5554 shell settings put global window_animation_scale 0.0
+            adb -s emulator-5554 shell settings put global transition_animation_scale 0.0
+            adb -s emulator-5554 shell settings put global animator_duration_scale 0.0
 
-      # 1️⃣1️⃣ Run WDIO tests
-      - name: Run WDIO Tests
-        run: npx wdio run wdio.conf.ts
+            # Install APK
+            echo "Installing APK..."
+            adb install -r ./apps/Android.SauceLabs.apk
+
+            # Run WDIO tests using local Appium
+            echo "Preparing Appium driver..."
+            npx appium --version || true
+            npx appium driver list --installed || true
+            # Install UiAutomator2 driver compatible with Appium 2.x
+            npm install --save-dev appium-uiautomator2-driver@4.2.9 --legacy-peer-deps
+
+            echo "Resolving Android platform version..."
+            ANDROID_VERSION=$(adb -s emulator-5554 shell getprop ro.build.version.release | tr -d '\r')
+            echo "Detected Android version: ${ANDROID_VERSION}"
+
+            echo "Running WDIO tests..."
+            export PLATFORM_NAME=Android
+            export DEVICE_NAME=emulator-5554
+            export PLATFORM_VERSION=${ANDROID_VERSION}
+            export AUTOMATION_NAME=UiAutomator2
+            export APP_PATH=./apps/Android.SauceLabs.apk
+            npx wdio run ./wdio.conf.ts
+
+      # Step 6: Upload Allure results
+      - name: Upload Allure results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results
