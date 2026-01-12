@@ -1,57 +1,57 @@
 export const config: WebdriverIO.Config = {
     runner: 'local',
+
+    // 🔑 Appium 2.x base path
+    hostname: '127.0.0.1',
     port: 4723,
-    path: '/wd/hub',
+    path: '/',   // ❗ NOT /wd/hub
+
     specs: ['./test/specs/**/*.ts'],
 
-    services: ['appium'],
+    services: [
+        ['appium', {
+            command: 'appium',
+            args: {
+                address: '127.0.0.1',
+                port: 4723,
+                logLevel: 'info',
+            }
+        }]
+    ],
 
-
-    // capabilities: [{
-
-
-    //     platformName: 'Android',
-    //     // 'appium:deviceName': '98cefeb9 ',
-    //     'appium:deviceName': 'emulator-5554',
-    //     'appium:automationName': 'UiAutomator2',
-
-    //     'appium:appPackage': 'com.swaglabsmobileapp',
-    //     'appium:appActivity': 'com.swaglabsmobileapp.SplashActivity',
-
-    //     // 🔑 APK PATH
-    //     'appium:app': 'apps/SauceLabs.app.2.7.1.apk',
-    //     // 🔑 FIX
-    //     "appium:ignoreHiddenApiPolicyError": true,
-
-
-    //     'appium:noReset': false,   // reinstall app every run
-    //     'appium:fullReset': true,
-
-    // }],
     capabilities: [{
-
         platformName: 'Android',
         'appium:deviceName': 'emulator-5554',
-        "appium:automationName": 'UiAutomator2',
-        "appium:app": 'apps/SauceLabs.app.2.7.1.apk',
+        'appium:automationName': 'UiAutomator2',
 
-        // Increase timeouts
-        "appium:adbExecTimeout": 60000,               // 60s for ADB commands like install/uninstall
-        "appium:uiautomator2ServerInstallTimeout": 120000,  // 120s for UiAutomator2 server install
-        "appium:newCommandTimeout": 300,
+        // APK
+        'appium:app': 'apps/SauceLabs.app.2.7.1.apk',
 
+        // Stability flags
+        'appium:autoGrantPermissions': true,
+        'appium:ignoreHiddenApiPolicyError': true,
+        'appium:noReset': false,
+        'appium:fullReset': true,
+
+        // ⏱ CI-safe timeouts
+        'appium:adbExecTimeout': 180000,                     // 3 minutes
+        'appium:uiautomator2ServerInstallTimeout': 300000,   // 5 minutes
+        'appium:newCommandTimeout': 300,
     }],
+
+    connectionRetryTimeout: 300000,
+    connectionRetryCount: 3,
+
     mochaOpts: {
-        timeout: 90 * 1000 // 60 seconds
+        timeout: 120000 // 2 minutes per test
     },
 
-    reporters: ['spec',
+    reporters: [
+        'spec',
         ['allure', {
             outputDir: 'allure-results',
             disableWebdriverStepsReporting: true,
             disableWebdriverScreenshotsReporting: false,
         }]
     ],
-
-
-}
+};
