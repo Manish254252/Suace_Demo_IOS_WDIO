@@ -1,3 +1,5 @@
+import path = require("path");
+
 export const config: WebdriverIO.Config = {
     runner: 'local',
 
@@ -25,7 +27,8 @@ export const config: WebdriverIO.Config = {
         'appium:automationName': 'UiAutomator2',
 
         // APK
-        'appium:app': 'apps/SauceLabs.app.2.7.1.apk',
+        'appium:app': path.resolve(__dirname, 'apps/SauceLabs.app.2.7.1.apk'),
+       
         'appium:appActivity': '.SplashActivity',
 
 
