@@ -1,3 +1,5 @@
+
+
 export class BasePage {
 
     async swipe(
@@ -118,5 +120,23 @@ export class BasePage {
 
         await driver.releaseActions();
     }
+
+    /**
+ * Switch to a specific Appium context (WEBVIEW or NATIVE_APP)
+ * @param {'WEBVIEW' | 'NATIVE_APP'} target
+ * @param {number} timeout
+ */
+ async  switchContext(target = 'WEBVIEW', timeout = 15000) {
+    console.log(await driver.getContexts())
+  if (target === 'NATIVE_APP') {
+    await driver.switchContext('NATIVE_APP');
+    return;
+  }
+  
+  
+  await driver.switchContext("WEBVIEW_com.swaglabsmobileapp");
+  console.log("Current Context :"+await driver.getContext());
+}
+
 
 }

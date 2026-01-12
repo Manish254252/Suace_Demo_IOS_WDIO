@@ -5,7 +5,7 @@ import checkoutPage from '../pageobjects/Android/checkout.Page'
 
 beforeEach(async () => {
     // Launch / bring app to foreground
-   
+
     await driver.activateApp('com.swaglabsmobileapp');
 });
 afterEach(async () => {
@@ -103,8 +103,41 @@ describe('SuaceLabs Android App', () => {
         await homePage.clickDrawingSection()
 
         // await homePage.swipe('up')
-        await homePage.swipe("left", 12000)
-        // await homePage.swipe("right")
+        await homePage.swipe("left", 1200)
+        await homePage.swipe("right")
+
+
+    })
+
+    it('Allow Permission', async () => {
+
+
+        await loginPage.fillUsername();
+        await loginPage.fillPassword();
+        await loginPage.tapLogin();
+
+        await homePage.tapAddToCartBtn()
+        await homePage.clickMenuBtn()
+        await homePage.clickzOnQR_CODE()
+        await homePage.oneTimeAllowPermission()
+
+
+    })
+
+    it.only('Webview Context Switch', async () => {
+
+
+        await loginPage.fillUsername();
+        await loginPage.fillPassword();
+        await loginPage.tapLogin();
+
+        await homePage.tapAddToCartBtn()
+        await homePage.clickMenuBtn()
+        await homePage.clickWebView()
+        await homePage.enterURL("www.google.com")
+        await homePage.clickGoTO()
+        await homePage.switchContext()
+        expect(await driver.$("//*[text()='ALL']")).toBeDisplayed()
 
 
     })

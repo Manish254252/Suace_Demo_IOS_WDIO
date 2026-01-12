@@ -1,86 +1,37 @@
-name: WDIO Appium Tests
-
+name: Android emulator
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
+    
+env:
+  ANDROID_ARCH: x86_64
+  ANDROID_TARGET: google_apis_playstore
+  API_LEVEL: 33
+  ANDROID_BUILD_TOOLS_VERSION: 33.0.2
+  ANDROID_SDK_PACKAGES: system-images;android-33;google_apis_playstore;x86_64 platforms;android-33 build-tools;33.0.2 platform-tools emulator
+  EMULATOR_TIMEOUT: 350
+  EMULATOR_NAME: nexus
 
 jobs:
-  wdio-tests:
-    runs-on: ubuntu-latest
-
+  playwright-emulator:
+    timeout-minutes: 20
+    runs-on: macos-latest
     steps:
-      # 1. Checkout code
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      # 2. Set up Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      # 3. Cache node_modules
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      # 4. Install dependencies
-      - name: Install dependencies
-        run: npm ci
-
-      # 5. Set up Android Emulator with reliable boot
-      - name: Set up Android Emulator
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 33
-          target: google_apis
-          arch: x86_64
-          force-avd-creation: true
-          emulator-options: "-no-window -no-audio -gpu swiftshader_indirect -no-snapshot"
-          script: |
-            echo "Waiting for emulator to boot..."
-            adb wait-for-device
-            boot_completed=$(adb shell getprop sys.boot_completed | tr -d '\r')
-            count=0
-            until [ "$boot_completed" = "1" ] || [ $count -gt 30 ]; do
-              sleep 5
-              boot_completed=$(adb shell getprop sys.boot_completed | tr -d '\r')
-              count=$((count+1))
-              echo "Waiting for emulator... ($count)"
-            done
-            if [ "$boot_completed" != "1" ]; then
-              echo "Emulator failed to boot in time."
-              exit 1
-            fi
-            echo "Emulator booted successfully!"
-
-      # 6. Install APK on emulator (optional but faster)
-      - name: Install APK
-        run: adb install -r apps/SauceLabs.app.2.7.1.apk
-
-      # 7. Start Appium server
-      - name: Start Appium
+      - uses: actions/checkout@v3
+        
+      - name: Add avdmanager and sdkmanager to system PATH
         run: |
-          npm install -g appium
-          appium &      # Start Appium in background
-          sleep 10      # Wait for server to start
+            echo "$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/${{ env.ANDROID_BUILD_TOOLS_VERSION }}" >> $GITHUB_PATH
 
-      # 8. Run WDIO tests
-      - name: Run WDIO Tests
-        run: npx wdio run wdio.conf.js
+      - name: Install Sdk
+        run: |
+           yes Y | sdkmanager --licenses
+           sdkmanager --install ${ANDROID_SDK_PACKAGES}
+  
+      - name: Build emulator
+        run: |
+            echo "no" | avdmanager --verbose create avd --force -n $EMULATOR_NAME --abi "${ANDROID_TARGET}/${ANDROID_ARCH}" -k "system-images;android-${API_LEVEL};${ANDROID_TARGET};${ANDROID_ARCH}"
 
-      # 9. Upload test results
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: wdio-results
-          path: ./reports
+      - name: Launch emulator
+        run: |
+          chmod +x ./start_emu_headless.sh
+          EMULATOR_TIMEOUT=$EMULATOR_TIMEOUT EMULATOR_NAME=$EMULATOR_NAME ./start_emu_headless.sh
