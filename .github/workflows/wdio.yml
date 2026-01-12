@@ -1,89 +1,85 @@
-name: Android Emulator WDIO
+name: Android Emulator WDIO Tests
 
 on:
   workflow_dispatch:
 
 env:
+  ANDROID_HOME: /usr/local/share/android/sdk
   API_LEVEL: 33
   ANDROID_ARCH: x86_64
   ANDROID_TARGET: google_apis
   EMULATOR_NAME: android-emulator
 
 jobs:
-  android-tests:
-    runs-on: ubuntu-latest
+  wdio-android:
+    runs-on: macos-latest
     timeout-minutes: 30
 
     steps:
+      # 1️⃣ Checkout repository
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
+      # 3️⃣ Install npm dependencies
       - name: Install dependencies
         run: npm ci
 
+      # 4️⃣ Setup Android SDK
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
-      
-      - name: Add Android tools to PATH
-        run: |
-          echo "$ANDROID_HOME/emulator" >> $GITHUB_PATH
-          echo "$ANDROID_HOME/platform-tools" >> $GITHUB_PATH
-          echo "$ANDROID_HOME/cmdline-tools/latest/bin" >> $GITHUB_PATH
+        with:
+          api-level: ${{ env.API_LEVEL }}
+          target: ${{ env.ANDROID_TARGET }}
+          arch: ${{ env.ANDROID_ARCH }}
+          force-accept-licenses: true
 
-      - name: Install emulator & system image
-        run: |
-          sdkmanager "system-images;android-${API_LEVEL};${ANDROID_TARGET};${ANDROID_ARCH}"
-          sdkmanager "platform-tools" "emulator"
-
-      - name: Set AVD env
-        run: |
-          echo "ANDROID_AVD_HOME=$HOME/.android/avd" >> $GITHUB_ENV
-          mkdir -p $HOME/.android/avd
-      - name: Free disk space
-        run: |
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /opt/hostedtoolcache
-          df -h
-
-      - name: Install system image
+      # 5️⃣ Install emulator and platform-tools
+      - name: Install emulator & tools
         run: |
           sdkmanager "platform-tools" "emulator" \
-            "system-images;android-33;google_apis;arm64-v8a"
+            "system-images;android-${API_LEVEL};${ANDROID_TARGET};${ANDROID_ARCH}"
 
+      # 6️⃣ Create AVD
       - name: Create AVD
         run: |
           echo "no" | avdmanager create avd \
-            --name android-emulator \
-            --package "system-images;android-33;google_apis;arm64-v8a" \
-            --device pixel
+            --name $EMULATOR_NAME \
+            --package "system-images;android-${API_LEVEL};${ANDROID_TARGET};${ANDROID_ARCH}" \
+            --device "pixel"
 
-
-      - name: Verify AVD
-        run: emulator -list-avds
-
+      # 7️⃣ Start emulator
       - name: Start emulator
         run: |
-          emulator -avd android-emulator \
-            -no-window -no-audio -gpu swiftshader_indirect &
-
-
+          $ANDROID_HOME/emulator/emulator \
+            -avd $EMULATOR_NAME \
+            -no-window \
+            -no-audio \
+            -gpu host \
+            -accel hvf &
+          
+      # 8️⃣ Wait for emulator to fully boot
       - name: Wait for emulator
         run: |
           adb wait-for-device
-          adb shell getprop sys.boot_completed | grep 1
+          while [[ "$(adb shell getprop sys.boot_completed | tr -d '\r')" != "1" ]]; do
+            echo "Waiting for emulator boot..."
+            sleep 5
+          done
           adb devices
 
+      # 9️⃣ Start Appium server
       - name: Start Appium
         run: |
           npm install -g appium
           appium --log-level error &
           sleep 10
 
+      # 🔟 Run WDIO tests
       - name: Run WDIO tests
         run: npx wdio run wdio.conf.ts
