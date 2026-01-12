@@ -26,12 +26,14 @@ export const config: WebdriverIO.Config = {
 
         // APK
         'appium:app': 'apps/SauceLabs.app.2.7.1.apk',
+        'appium:appActivity': '.MainActivity',
+
 
         // Stability flags
         'appium:autoGrantPermissions': true,
         'appium:ignoreHiddenApiPolicyError': true,
-        'appium:noReset': false,
-        'appium:fullReset': true,
+        'appium:noReset': true,
+        'appium:fullReset': false,
 
         // ⏱ CI-safe timeouts
         'appium:adbExecTimeout': 180000,                     // 3 minutes
