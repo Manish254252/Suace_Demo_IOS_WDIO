@@ -44,6 +44,12 @@ jobs:
         run: |
           echo "ANDROID_AVD_HOME=$HOME/.android/avd" >> $GITHUB_ENV
           mkdir -p $HOME/.android/avd
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/hostedtoolcache
+          df -h
 
       - name: Install system image
         run: |
