@@ -124,7 +124,7 @@ describe('SuaceLabs Android App', () => {
 
     })
 
-    it.only('Webview Context Switch', async () => {
+    it('Webview Context Switch', async () => {
 
 
         await loginPage.fillUsername();
