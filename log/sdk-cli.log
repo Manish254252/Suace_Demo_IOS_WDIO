@@ -1,0 +1,323 @@
+2026-01-15T10:15:28.334Z CLI info     Config : {"userName":"[REDACTED]","accessKey":"[REDACTED]","platforms":[{"deviceName":"Samsung Galaxy S22 Ultra","platformVersion":"12.0","platformName":"android","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"},{"deviceName":"Google Pixel 7 Pro","platformVersion":"13.0","platformName":"android","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"},{"deviceName":"OnePlus 9","platformVersion":"11.0","platformName":"android","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"}],"isNonBstackA11yWDIO":false,"accessibility":false,"buildIdentifier":"${BUILD_NUMBER}","browserstackLocal":true,"app":"./examples/BStackSampleApp.ipa","testObservability":true,"testObservabilityOptions":{"buildTag":["bstack_sample"]},"browserStackLocalOptions":{"forcelocal":false,"localIdentifier":"webdriverio-appium-app-browserstack-repo"},"testContextOptions":{"skipSessionName":false,"skipSessionStatus":false,"sessionNameOmitTestTitle":false,"sessionNamePrependTopLevelSuiteTitle":false,"sessionNameFormat":""},"buildTag":["bstack_sample"]}
+2026-01-15T10:15:28.341Z CLI info     Should start debug utility: undefined
+2026-01-15T10:15:28.391Z CLI info [testhub:module]  [mksolanki_iKfrV9]   [6def4183-5c8f-4105-88ff-071faef41191]  Starting testhub from 47130:0
+2026-01-15T10:15:28.392Z CLI info  [mksolanki_iKfrV9]   [6def4183-5c8f-4105-88ff-071faef41191]  [PRODUCTION] Making POST request to https://sdk.browserstack.com
+2026-01-15T10:15:28.394Z CLI info  [mksolanki_iKfrV9]   [6def4183-5c8f-4105-88ff-071faef41191]  [PRODUCTION] Making GET request to https://hub.browserstack.com
+2026-01-15T10:15:28.570Z CLI info  [mksolanki_iKfrV9]   [6def4183-5c8f-4105-88ff-071faef41191]  [PRODUCTION] Making GET request to https://hub-aps.browserstack.com
+2026-01-15T10:15:28.571Z CLI info  [mksolanki_iKfrV9]   [6def4183-5c8f-4105-88ff-071faef41191]  [PRODUCTION] Making GET request to https://hub-euw.browserstack.com
+2026-01-15T10:15:28.572Z CLI info  [mksolanki_iKfrV9]   [6def4183-5c8f-4105-88ff-071faef41191]  [PRODUCTION] Making GET request to https://hub-apse.browserstack.com
+2026-01-15T10:15:29.320Z CLI info [testhub:module]  [mksolanki_iKfrV9]   [6def4183-5c8f-4105-88ff-071faef41191]  startBuild: response=tkikgkpajj4drbjp8d6sqpm06sm0o4mohv05rgov
+2026-01-15T10:15:29.323Z CLI info  [mksolanki_iKfrV9]  [tkikgkpajj4drbjp8d6sqpm06sm0o4mohv05rgov]  [6def4183-5c8f-4105-88ff-071faef41191]  [PRODUCTION] Making POST request to https://api.browserstack.com
+2026-01-15T10:15:29.694Z CLI info  [mksolanki_iKfrV9]  [tkikgkpajj4drbjp8d6sqpm06sm0o4mohv05rgov]  [6def4183-5c8f-4105-88ff-071faef41191]  [PRODUCTION] Making GET request to https://api.browserstack.com
+2026-01-15T10:15:30.021Z CLI error  [mksolanki_iKfrV9]  [tkikgkpajj4drbjp8d6sqpm06sm0o4mohv05rgov]  [6def4183-5c8f-4105-88ff-071faef41191]  error invoking callback for eventName: {}
+2026-01-15T10:15:30.021Z CLI error  [mksolanki_iKfrV9]  [tkikgkpajj4drbjp8d6sqpm06sm0o4mohv05rgov]  [6def4183-5c8f-4105-88ff-071faef41191]  Error: invalid percyToken=null
+    at /snapshot/browserstack-binary/cli/dist/index.js
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2026-01-15T10:15:37.691Z CLI info [appautomate:service]  [mksolanki_iKfrV9]  [tkikgkpajj4drbjp8d6sqpm06sm0o4mohv05rgov]  [6def4183-5c8f-4105-88ff-071faef41191]  Using app: ./examples/BStackSampleApp.ipa
+2026-01-15T10:15:37.692Z CLI error  [mksolanki_iKfrV9]  [tkikgkpajj4drbjp8d6sqpm06sm0o4mohv05rgov]  [6def4183-5c8f-4105-88ff-071faef41191]  error invoking callback for eventName: {}
+2026-01-15T10:15:37.692Z CLI error  [mksolanki_iKfrV9]  [tkikgkpajj4drbjp8d6sqpm06sm0o4mohv05rgov]  [6def4183-5c8f-4105-88ff-071faef41191]  Error: [Invalid app path] app path /Users/testvagrant/Manish/SwagLabs_WDIO_Appium/examples/BStackSampleApp.ipa is not correct, Provide correct path to app under test
+    at /snapshot/browserstack-binary/cli/dist/index.js
+    at async AppAutomateModule.onStart (/snapshot/browserstack-binary/cli/dist/index.js)
+    at async HookRegistry.invoke (/snapshot/browserstack-binary/cli/dist/index.js)
+    at async /snapshot/browserstack-binary/cli/dist/index.js
+    at async Promise.allSettled (index 0)
+    at async /snapshot/browserstack-binary/cli/dist/index.js
+2026-01-15T10:15:48.287Z CLI info  [mksolanki_iKfrV9]  [tkikgkpajj4drbjp8d6sqpm06sm0o4mohv05rgov]  [6def4183-5c8f-4105-88ff-071faef41191]  [PRODUCTION] Making GET request to https://api.browserstack.com
+2026-01-15T10:15:48.293Z CLI info  [mksolanki_iKfrV9]  [tkikgkpajj4drbjp8d6sqpm06sm0o4mohv05rgov]  [6def4183-5c8f-4105-88ff-071faef41191]  [PRODUCTION] Making PUT request to https://collector-observability.browserstack.com
+2026-01-15T10:15:49.014Z CLI info [testhub:module]  [mksolanki_iKfrV9]  [tkikgkpajj4drbjp8d6sqpm06sm0o4mohv05rgov]  [6def4183-5c8f-4105-88ff-071faef41191]  stopBuild: tkikgkpajj4drbjp8d6sqpm06sm0o4mohv05rgov request={"finished_at":"2026-01-15T10:15:48.289Z","finished_metadata":[],"custom_metadata":null} response={"data":""}
+2026-01-15T10:15:49.015Z CLI info  [mksolanki_iKfrV9]  [tkikgkpajj4drbjp8d6sqpm06sm0o4mohv05rgov]  [6def4183-5c8f-4105-88ff-071faef41191]  [PRODUCTION] Making POST request to https://api.browserstack.com
+2026-01-15T10:15:49.383Z CLI info [TEST REPORTING AND ANALYTICS:module]  [mksolanki_iKfrV9]  [tkikgkpajj4drbjp8d6sqpm06sm0o4mohv05rgov]  [6def4183-5c8f-4105-88ff-071faef41191]  Visit https://automation.browserstack.com/builds/tkikgkpajj4drbjp8d6sqpm06sm0o4mohv05rgov to view build report, insights, and many more debugging information all at one place!
+2026-01-15T10:15:51.979Z CLI info [main]  [mksolanki_iKfrV9]  [tkikgkpajj4drbjp8d6sqpm06sm0o4mohv05rgov]  [6def4183-5c8f-4105-88ff-071faef41191]  Received graceful signal termination, performing cleanup
+2026-01-15T10:17:34.739Z CLI info     Config : {"userName":"[REDACTED]","accessKey":"[REDACTED]","platforms":[{"deviceName":"Samsung Galaxy S22 Ultra","platformVersion":"12.0","platformName":"android","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"},{"deviceName":"Google Pixel 7 Pro","platformVersion":"13.0","platformName":"android","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"},{"deviceName":"OnePlus 9","platformVersion":"11.0","platformName":"android","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"}],"isNonBstackA11yWDIO":false,"accessibility":false,"buildIdentifier":"${BUILD_NUMBER}","browserstackLocal":true,"app":"bs://30f346cd4173753f942013bd7517b62a49f469a3","testObservability":true,"testObservabilityOptions":{"buildTag":["bstack_sample"]},"browserStackLocalOptions":{"forcelocal":false,"localIdentifier":"webdriverio-appium-app-browserstack-repo"},"testContextOptions":{"skipSessionName":false,"skipSessionStatus":false,"sessionNameOmitTestTitle":false,"sessionNamePrependTopLevelSuiteTitle":false,"sessionNameFormat":""},"buildTag":["bstack_sample"]}
+2026-01-15T10:17:34.748Z CLI info     Should start debug utility: undefined
+2026-01-15T10:17:34.794Z CLI info [testhub:module]  [mksolanki_iKfrV9]   [1388720c-cc10-48fc-83d7-4feb482f4f4f]  Starting testhub from 47423:0
+2026-01-15T10:17:34.795Z CLI info  [mksolanki_iKfrV9]   [1388720c-cc10-48fc-83d7-4feb482f4f4f]  [PRODUCTION] Making POST request to https://sdk.browserstack.com
+2026-01-15T10:17:34.798Z CLI info  [mksolanki_iKfrV9]   [1388720c-cc10-48fc-83d7-4feb482f4f4f]  [PRODUCTION] Making GET request to https://hub.browserstack.com
+2026-01-15T10:17:34.972Z CLI info  [mksolanki_iKfrV9]   [1388720c-cc10-48fc-83d7-4feb482f4f4f]  [PRODUCTION] Making GET request to https://hub-aps.browserstack.com
+2026-01-15T10:17:34.973Z CLI info  [mksolanki_iKfrV9]   [1388720c-cc10-48fc-83d7-4feb482f4f4f]  [PRODUCTION] Making GET request to https://hub-euw.browserstack.com
+2026-01-15T10:17:34.975Z CLI info  [mksolanki_iKfrV9]   [1388720c-cc10-48fc-83d7-4feb482f4f4f]  [PRODUCTION] Making GET request to https://hub-apse.browserstack.com
+2026-01-15T10:17:36.343Z CLI info [testhub:module]  [mksolanki_iKfrV9]   [1388720c-cc10-48fc-83d7-4feb482f4f4f]  startBuild: response=xq0hkry6wpadrqryuoozekndsez2h6rin2aqydtk
+2026-01-15T10:17:36.345Z CLI info  [mksolanki_iKfrV9]  [xq0hkry6wpadrqryuoozekndsez2h6rin2aqydtk]  [1388720c-cc10-48fc-83d7-4feb482f4f4f]  [PRODUCTION] Making POST request to https://api.browserstack.com
+2026-01-15T10:17:36.749Z CLI info  [mksolanki_iKfrV9]  [xq0hkry6wpadrqryuoozekndsez2h6rin2aqydtk]  [1388720c-cc10-48fc-83d7-4feb482f4f4f]  [PRODUCTION] Making GET request to https://api.browserstack.com
+2026-01-15T10:17:37.161Z CLI error  [mksolanki_iKfrV9]  [xq0hkry6wpadrqryuoozekndsez2h6rin2aqydtk]  [1388720c-cc10-48fc-83d7-4feb482f4f4f]  error invoking callback for eventName: {}
+2026-01-15T10:17:37.161Z CLI error  [mksolanki_iKfrV9]  [xq0hkry6wpadrqryuoozekndsez2h6rin2aqydtk]  [1388720c-cc10-48fc-83d7-4feb482f4f4f]  Error: invalid percyToken=null
+    at /snapshot/browserstack-binary/cli/dist/index.js
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2026-01-15T10:17:41.416Z CLI info [appautomate:service]  [mksolanki_iKfrV9]  [xq0hkry6wpadrqryuoozekndsez2h6rin2aqydtk]  [1388720c-cc10-48fc-83d7-4feb482f4f4f]  Using app: bs://30f346cd4173753f942013bd7517b62a49f469a3
+2026-01-15T10:17:42.438Z CLI info  [mksolanki_iKfrV9]  [xq0hkry6wpadrqryuoozekndsez2h6rin2aqydtk]  [1388720c-cc10-48fc-83d7-4feb482f4f4f]  [PRODUCTION] Making GET request to https://api.browserstack.com
+2026-01-15T10:17:42.444Z CLI info  [mksolanki_iKfrV9]  [xq0hkry6wpadrqryuoozekndsez2h6rin2aqydtk]  [1388720c-cc10-48fc-83d7-4feb482f4f4f]  [PRODUCTION] Making PUT request to https://collector-observability.browserstack.com
+2026-01-15T10:17:43.298Z CLI info [testhub:module]  [mksolanki_iKfrV9]  [xq0hkry6wpadrqryuoozekndsez2h6rin2aqydtk]  [1388720c-cc10-48fc-83d7-4feb482f4f4f]  stopBuild: xq0hkry6wpadrqryuoozekndsez2h6rin2aqydtk request={"finished_at":"2026-01-15T10:17:42.440Z","finished_metadata":[],"custom_metadata":null} response={"data":""}
+2026-01-15T10:17:43.300Z CLI info  [mksolanki_iKfrV9]  [xq0hkry6wpadrqryuoozekndsez2h6rin2aqydtk]  [1388720c-cc10-48fc-83d7-4feb482f4f4f]  [PRODUCTION] Making POST request to https://api.browserstack.com
+2026-01-15T10:17:43.706Z CLI info [TEST REPORTING AND ANALYTICS:module]  [mksolanki_iKfrV9]  [xq0hkry6wpadrqryuoozekndsez2h6rin2aqydtk]  [1388720c-cc10-48fc-83d7-4feb482f4f4f]  Visit https://automation.browserstack.com/builds/xq0hkry6wpadrqryuoozekndsez2h6rin2aqydtk to view build report, insights, and many more debugging information all at one place!
+2026-01-15T10:17:46.288Z CLI info [main]  [mksolanki_iKfrV9]  [xq0hkry6wpadrqryuoozekndsez2h6rin2aqydtk]  [1388720c-cc10-48fc-83d7-4feb482f4f4f]  Received graceful signal termination, performing cleanup
+2026-01-15T10:18:49.799Z CLI info     Config : {"userName":"[REDACTED]","accessKey":"[REDACTED]","platforms":[{"deviceName":"Samsung Galaxy S22 Ultra","platformVersion":"12.0","platformName":"android","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"},{"deviceName":"Google Pixel 7 Pro","platformVersion":"13.0","platformName":"android","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"},{"deviceName":"OnePlus 9","platformVersion":"11.0","platformName":"android","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"}],"isNonBstackA11yWDIO":false,"accessibility":false,"buildIdentifier":"${BUILD_NUMBER}","browserstackLocal":true,"app":"bs://30f346cd4173753f942013bd7517b62a49f469a3","testObservability":true,"testObservabilityOptions":{"buildTag":["bstack_sample"]},"browserStackLocalOptions":{"forcelocal":false,"localIdentifier":"webdriverio-appium-app-browserstack-repo"},"testContextOptions":{"skipSessionName":false,"skipSessionStatus":false,"sessionNameOmitTestTitle":false,"sessionNamePrependTopLevelSuiteTitle":false,"sessionNameFormat":""},"buildTag":["bstack_sample"]}
+2026-01-15T10:18:49.805Z CLI info     Should start debug utility: undefined
+2026-01-15T10:18:49.850Z CLI info [testhub:module]  [mksolanki_iKfrV9]   [4d89ddf6-987e-404c-ab93-2eb1888f756b]  Starting testhub from 47697:0
+2026-01-15T10:18:49.851Z CLI info  [mksolanki_iKfrV9]   [4d89ddf6-987e-404c-ab93-2eb1888f756b]  [PRODUCTION] Making POST request to https://sdk.browserstack.com
+2026-01-15T10:18:49.853Z CLI info  [mksolanki_iKfrV9]   [4d89ddf6-987e-404c-ab93-2eb1888f756b]  [PRODUCTION] Making GET request to https://hub.browserstack.com
+2026-01-15T10:18:50.005Z CLI info  [mksolanki_iKfrV9]   [4d89ddf6-987e-404c-ab93-2eb1888f756b]  [PRODUCTION] Making GET request to https://hub-aps.browserstack.com
+2026-01-15T10:18:50.007Z CLI info  [mksolanki_iKfrV9]   [4d89ddf6-987e-404c-ab93-2eb1888f756b]  [PRODUCTION] Making GET request to https://hub-euw.browserstack.com
+2026-01-15T10:18:50.008Z CLI info  [mksolanki_iKfrV9]   [4d89ddf6-987e-404c-ab93-2eb1888f756b]  [PRODUCTION] Making GET request to https://hub-apse.browserstack.com
+2026-01-15T10:18:50.743Z CLI info [testhub:module]  [mksolanki_iKfrV9]   [4d89ddf6-987e-404c-ab93-2eb1888f756b]  startBuild: response=2idndqr0phh0idm6jivleupjaguuq4w0u4168uan
+2026-01-15T10:18:50.748Z CLI info  [mksolanki_iKfrV9]  [2idndqr0phh0idm6jivleupjaguuq4w0u4168uan]  [4d89ddf6-987e-404c-ab93-2eb1888f756b]  [PRODUCTION] Making POST request to https://api.browserstack.com
+2026-01-15T10:18:51.108Z CLI info  [mksolanki_iKfrV9]  [2idndqr0phh0idm6jivleupjaguuq4w0u4168uan]  [4d89ddf6-987e-404c-ab93-2eb1888f756b]  [PRODUCTION] Making GET request to https://api.browserstack.com
+2026-01-15T10:18:51.499Z CLI error  [mksolanki_iKfrV9]  [2idndqr0phh0idm6jivleupjaguuq4w0u4168uan]  [4d89ddf6-987e-404c-ab93-2eb1888f756b]  error invoking callback for eventName: {}
+2026-01-15T10:18:51.499Z CLI error  [mksolanki_iKfrV9]  [2idndqr0phh0idm6jivleupjaguuq4w0u4168uan]  [4d89ddf6-987e-404c-ab93-2eb1888f756b]  Error: invalid percyToken=null
+    at /snapshot/browserstack-binary/cli/dist/index.js
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2026-01-15T10:18:55.920Z CLI info [appautomate:service]  [mksolanki_iKfrV9]  [2idndqr0phh0idm6jivleupjaguuq4w0u4168uan]  [4d89ddf6-987e-404c-ab93-2eb1888f756b]  Using app: bs://30f346cd4173753f942013bd7517b62a49f469a3
+2026-01-15T10:18:56.944Z CLI info  [mksolanki_iKfrV9]  [2idndqr0phh0idm6jivleupjaguuq4w0u4168uan]  [4d89ddf6-987e-404c-ab93-2eb1888f756b]  [PRODUCTION] Making GET request to https://api.browserstack.com
+2026-01-15T10:18:56.951Z CLI info  [mksolanki_iKfrV9]  [2idndqr0phh0idm6jivleupjaguuq4w0u4168uan]  [4d89ddf6-987e-404c-ab93-2eb1888f756b]  [PRODUCTION] Making PUT request to https://collector-observability.browserstack.com
+2026-01-15T10:18:57.658Z CLI info [testhub:module]  [mksolanki_iKfrV9]  [2idndqr0phh0idm6jivleupjaguuq4w0u4168uan]  [4d89ddf6-987e-404c-ab93-2eb1888f756b]  stopBuild: 2idndqr0phh0idm6jivleupjaguuq4w0u4168uan request={"finished_at":"2026-01-15T10:18:56.946Z","finished_metadata":[],"custom_metadata":null} response={"data":""}
+2026-01-15T10:18:57.660Z CLI info  [mksolanki_iKfrV9]  [2idndqr0phh0idm6jivleupjaguuq4w0u4168uan]  [4d89ddf6-987e-404c-ab93-2eb1888f756b]  [PRODUCTION] Making POST request to https://api.browserstack.com
+2026-01-15T10:18:58.058Z CLI info [TEST REPORTING AND ANALYTICS:module]  [mksolanki_iKfrV9]  [2idndqr0phh0idm6jivleupjaguuq4w0u4168uan]  [4d89ddf6-987e-404c-ab93-2eb1888f756b]  Visit https://automation.browserstack.com/builds/2idndqr0phh0idm6jivleupjaguuq4w0u4168uan to view build report, insights, and many more debugging information all at one place!
+2026-01-15T10:19:00.656Z CLI info [main]  [mksolanki_iKfrV9]  [2idndqr0phh0idm6jivleupjaguuq4w0u4168uan]  [4d89ddf6-987e-404c-ab93-2eb1888f756b]  Received graceful signal termination, performing cleanup
+2026-01-15T10:19:25.040Z CLI info     Config : {"userName":"[REDACTED]","accessKey":"[REDACTED]","platforms":[{"deviceName":"Samsung Galaxy S22 Ultra","platformVersion":"12.0","platformName":"android","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"},{"deviceName":"Google Pixel 7 Pro","platformVersion":"13.0","platformName":"android","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"},{"deviceName":"OnePlus 9","platformVersion":"11.0","platformName":"android","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"}],"isNonBstackA11yWDIO":false,"accessibility":false,"buildIdentifier":"${BUILD_NUMBER}","browserstackLocal":true,"app":"bs://30f346cd4173753f942013bd7517b62a49f469a3","testObservability":true,"testObservabilityOptions":{"buildTag":["bstack_sample"]},"browserStackLocalOptions":{"forcelocal":false,"localIdentifier":"webdriverio-appium-app-browserstack-repo"},"testContextOptions":{"skipSessionName":false,"skipSessionStatus":false,"sessionNameOmitTestTitle":false,"sessionNamePrependTopLevelSuiteTitle":false,"sessionNameFormat":""},"buildTag":["bstack_sample"]}
+2026-01-15T10:19:25.046Z CLI info     Should start debug utility: undefined
+2026-01-15T10:19:25.086Z CLI info [testhub:module]  [mksolanki_iKfrV9]   [1c2becdd-51b4-4f31-81c1-b2347217b446]  Starting testhub from 47952:0
+2026-01-15T10:19:25.088Z CLI info  [mksolanki_iKfrV9]   [1c2becdd-51b4-4f31-81c1-b2347217b446]  [PRODUCTION] Making POST request to https://sdk.browserstack.com
+2026-01-15T10:19:25.090Z CLI info  [mksolanki_iKfrV9]   [1c2becdd-51b4-4f31-81c1-b2347217b446]  [PRODUCTION] Making GET request to https://hub.browserstack.com
+2026-01-15T10:19:25.256Z CLI info  [mksolanki_iKfrV9]   [1c2becdd-51b4-4f31-81c1-b2347217b446]  [PRODUCTION] Making GET request to https://hub-aps.browserstack.com
+2026-01-15T10:19:25.258Z CLI info  [mksolanki_iKfrV9]   [1c2becdd-51b4-4f31-81c1-b2347217b446]  [PRODUCTION] Making GET request to https://hub-euw.browserstack.com
+2026-01-15T10:19:25.259Z CLI info  [mksolanki_iKfrV9]   [1c2becdd-51b4-4f31-81c1-b2347217b446]  [PRODUCTION] Making GET request to https://hub-apse.browserstack.com
+2026-01-15T10:19:26.015Z CLI info [testhub:module]  [mksolanki_iKfrV9]   [1c2becdd-51b4-4f31-81c1-b2347217b446]  startBuild: response=5qz61uitf7qyvrbe1vlq86vlh6hdb7fpk5vwh23q
+2026-01-15T10:19:26.018Z CLI info  [mksolanki_iKfrV9]  [5qz61uitf7qyvrbe1vlq86vlh6hdb7fpk5vwh23q]  [1c2becdd-51b4-4f31-81c1-b2347217b446]  [PRODUCTION] Making POST request to https://api.browserstack.com
+2026-01-15T10:19:26.408Z CLI info  [mksolanki_iKfrV9]  [5qz61uitf7qyvrbe1vlq86vlh6hdb7fpk5vwh23q]  [1c2becdd-51b4-4f31-81c1-b2347217b446]  [PRODUCTION] Making GET request to https://api.browserstack.com
+2026-01-15T10:19:26.852Z CLI error  [mksolanki_iKfrV9]  [5qz61uitf7qyvrbe1vlq86vlh6hdb7fpk5vwh23q]  [1c2becdd-51b4-4f31-81c1-b2347217b446]  error invoking callback for eventName: {}
+2026-01-15T10:19:26.853Z CLI error  [mksolanki_iKfrV9]  [5qz61uitf7qyvrbe1vlq86vlh6hdb7fpk5vwh23q]  [1c2becdd-51b4-4f31-81c1-b2347217b446]  Error: invalid percyToken=null
+    at /snapshot/browserstack-binary/cli/dist/index.js
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2026-01-15T10:19:31.054Z CLI info [appautomate:service]  [mksolanki_iKfrV9]  [5qz61uitf7qyvrbe1vlq86vlh6hdb7fpk5vwh23q]  [1c2becdd-51b4-4f31-81c1-b2347217b446]  Using app: bs://30f346cd4173753f942013bd7517b62a49f469a3
+2026-01-15T10:19:32.120Z CLI info  [mksolanki_iKfrV9]  [5qz61uitf7qyvrbe1vlq86vlh6hdb7fpk5vwh23q]  [1c2becdd-51b4-4f31-81c1-b2347217b446]  [PRODUCTION] Making GET request to https://api.browserstack.com
+2026-01-15T10:19:32.128Z CLI info  [mksolanki_iKfrV9]  [5qz61uitf7qyvrbe1vlq86vlh6hdb7fpk5vwh23q]  [1c2becdd-51b4-4f31-81c1-b2347217b446]  [PRODUCTION] Making PUT request to https://collector-observability.browserstack.com
+2026-01-15T10:19:32.857Z CLI info [testhub:module]  [mksolanki_iKfrV9]  [5qz61uitf7qyvrbe1vlq86vlh6hdb7fpk5vwh23q]  [1c2becdd-51b4-4f31-81c1-b2347217b446]  stopBuild: 5qz61uitf7qyvrbe1vlq86vlh6hdb7fpk5vwh23q request={"finished_at":"2026-01-15T10:19:32.122Z","finished_metadata":[],"custom_metadata":null} response={"data":""}
+2026-01-15T10:19:32.860Z CLI info  [mksolanki_iKfrV9]  [5qz61uitf7qyvrbe1vlq86vlh6hdb7fpk5vwh23q]  [1c2becdd-51b4-4f31-81c1-b2347217b446]  [PRODUCTION] Making POST request to https://api.browserstack.com
+2026-01-15T10:19:33.306Z CLI info [TEST REPORTING AND ANALYTICS:module]  [mksolanki_iKfrV9]  [5qz61uitf7qyvrbe1vlq86vlh6hdb7fpk5vwh23q]  [1c2becdd-51b4-4f31-81c1-b2347217b446]  Visit https://automation.browserstack.com/builds/5qz61uitf7qyvrbe1vlq86vlh6hdb7fpk5vwh23q to view build report, insights, and many more debugging information all at one place!
+2026-01-15T10:19:35.902Z CLI info [main]  [mksolanki_iKfrV9]  [5qz61uitf7qyvrbe1vlq86vlh6hdb7fpk5vwh23q]  [1c2becdd-51b4-4f31-81c1-b2347217b446]  Received graceful signal termination, performing cleanup
+2026-01-15T10:20:25.160Z CLI info     Config : {"userName":"[REDACTED]","accessKey":"[REDACTED]","platforms":[{"deviceName":"Samsung Galaxy S22 Ultra","platformVersion":"12.0","platformName":"android","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"},{"deviceName":"Google Pixel 7 Pro","platformVersion":"13.0","platformName":"android","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"},{"deviceName":"OnePlus 9","platformVersion":"11.0","platformName":"android","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"}],"isNonBstackA11yWDIO":false,"accessibility":false,"buildIdentifier":"${BUILD_NUMBER}","browserstackLocal":true,"app":"bs://30f346cd4173753f942013bd7517b62a49f469a3","testObservability":true,"testObservabilityOptions":{"buildTag":["bstack_sample"]},"browserStackLocalOptions":{"forcelocal":false,"localIdentifier":"webdriverio-appium-app-browserstack-repo"},"testContextOptions":{"skipSessionName":false,"skipSessionStatus":false,"sessionNameOmitTestTitle":false,"sessionNamePrependTopLevelSuiteTitle":false,"sessionNameFormat":""},"buildTag":["bstack_sample"]}
+2026-01-15T10:20:25.172Z CLI info     Should start debug utility: undefined
+2026-01-15T10:20:25.211Z CLI info [testhub:module]  [mksolanki_iKfrV9]   [fdc40284-261d-425e-a0db-e6cde2ead6d5]  Starting testhub from 48176:0
+2026-01-15T10:20:25.213Z CLI info  [mksolanki_iKfrV9]   [fdc40284-261d-425e-a0db-e6cde2ead6d5]  [PRODUCTION] Making POST request to https://sdk.browserstack.com
+2026-01-15T10:20:25.215Z CLI info  [mksolanki_iKfrV9]   [fdc40284-261d-425e-a0db-e6cde2ead6d5]  [PRODUCTION] Making GET request to https://hub.browserstack.com
+2026-01-15T10:20:25.402Z CLI info  [mksolanki_iKfrV9]   [fdc40284-261d-425e-a0db-e6cde2ead6d5]  [PRODUCTION] Making GET request to https://hub-aps.browserstack.com
+2026-01-15T10:20:25.403Z CLI info  [mksolanki_iKfrV9]   [fdc40284-261d-425e-a0db-e6cde2ead6d5]  [PRODUCTION] Making GET request to https://hub-euw.browserstack.com
+2026-01-15T10:20:25.404Z CLI info  [mksolanki_iKfrV9]   [fdc40284-261d-425e-a0db-e6cde2ead6d5]  [PRODUCTION] Making GET request to https://hub-apse.browserstack.com
+2026-01-15T10:20:26.229Z CLI info [testhub:module]  [mksolanki_iKfrV9]   [fdc40284-261d-425e-a0db-e6cde2ead6d5]  startBuild: response=r4jylweznayqixlahdxgtykjzrvwx4bi94og0v4t
+2026-01-15T10:20:26.232Z CLI info  [mksolanki_iKfrV9]  [r4jylweznayqixlahdxgtykjzrvwx4bi94og0v4t]  [fdc40284-261d-425e-a0db-e6cde2ead6d5]  [PRODUCTION] Making POST request to https://api.browserstack.com
+2026-01-15T10:20:26.568Z CLI info  [mksolanki_iKfrV9]  [r4jylweznayqixlahdxgtykjzrvwx4bi94og0v4t]  [fdc40284-261d-425e-a0db-e6cde2ead6d5]  [PRODUCTION] Making GET request to https://api.browserstack.com
+2026-01-15T10:20:26.917Z CLI error  [mksolanki_iKfrV9]  [r4jylweznayqixlahdxgtykjzrvwx4bi94og0v4t]  [fdc40284-261d-425e-a0db-e6cde2ead6d5]  error invoking callback for eventName: {}
+2026-01-15T10:20:26.917Z CLI error  [mksolanki_iKfrV9]  [r4jylweznayqixlahdxgtykjzrvwx4bi94og0v4t]  [fdc40284-261d-425e-a0db-e6cde2ead6d5]  Error: invalid percyToken=null
+    at /snapshot/browserstack-binary/cli/dist/index.js
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2026-01-15T10:20:31.349Z CLI info [appautomate:service]  [mksolanki_iKfrV9]  [r4jylweznayqixlahdxgtykjzrvwx4bi94og0v4t]  [fdc40284-261d-425e-a0db-e6cde2ead6d5]  Using app: bs://30f346cd4173753f942013bd7517b62a49f469a3
+2026-01-15T10:20:35.184Z CLI info [sdk:service]  [mksolanki_iKfrV9]  [r4jylweznayqixlahdxgtykjzrvwx4bi94og0v4t]  [fdc40284-261d-425e-a0db-e6cde2ead6d5]  Driver initialized as primary driver: platformIndex=2
+2026-01-15T10:20:35.191Z CLI info [sdk:service]  [mksolanki_iKfrV9]  [r4jylweznayqixlahdxgtykjzrvwx4bi94og0v4t]  [fdc40284-261d-425e-a0db-e6cde2ead6d5]  Driver initialized as primary driver: platformIndex=0
+2026-01-15T10:20:35.199Z CLI info [sdk:service]  [mksolanki_iKfrV9]  [r4jylweznayqixlahdxgtykjzrvwx4bi94og0v4t]  [fdc40284-261d-425e-a0db-e6cde2ead6d5]  Driver initialized as primary driver: platformIndex=1
+2026-01-15T10:20:44.303Z CLI info  [mksolanki_iKfrV9]  [r4jylweznayqixlahdxgtykjzrvwx4bi94og0v4t]  [fdc40284-261d-425e-a0db-e6cde2ead6d5]  [PRODUCTION] Making GET request to https://api.browserstack.com
+2026-01-15T10:20:44.315Z CLI info  [mksolanki_iKfrV9]  [r4jylweznayqixlahdxgtykjzrvwx4bi94og0v4t]  [fdc40284-261d-425e-a0db-e6cde2ead6d5]  [PRODUCTION] Making PUT request to https://collector-observability.browserstack.com
+2026-01-15T10:20:45.091Z CLI info [testhub:module]  [mksolanki_iKfrV9]  [r4jylweznayqixlahdxgtykjzrvwx4bi94og0v4t]  [fdc40284-261d-425e-a0db-e6cde2ead6d5]  stopBuild: r4jylweznayqixlahdxgtykjzrvwx4bi94og0v4t request={"finished_at":"2026-01-15T10:20:44.305Z","finished_metadata":[],"custom_metadata":null} response={"data":""}
+2026-01-15T10:20:45.094Z CLI info  [mksolanki_iKfrV9]  [r4jylweznayqixlahdxgtykjzrvwx4bi94og0v4t]  [fdc40284-261d-425e-a0db-e6cde2ead6d5]  [PRODUCTION] Making POST request to https://api.browserstack.com
+2026-01-15T10:20:45.440Z CLI info [TEST REPORTING AND ANALYTICS:module]  [mksolanki_iKfrV9]  [r4jylweznayqixlahdxgtykjzrvwx4bi94og0v4t]  [fdc40284-261d-425e-a0db-e6cde2ead6d5]  Visit https://automation.browserstack.com/builds/r4jylweznayqixlahdxgtykjzrvwx4bi94og0v4t to view build report, insights, and many more debugging information all at one place!
+2026-01-15T10:20:48.035Z CLI info [main]  [mksolanki_iKfrV9]  [r4jylweznayqixlahdxgtykjzrvwx4bi94og0v4t]  [fdc40284-261d-425e-a0db-e6cde2ead6d5]  Received graceful signal termination, performing cleanup
+2026-01-15T10:26:31.046Z CLI info     Config : {"userName":"[REDACTED]","accessKey":"[REDACTED]","platforms":[{"deviceName":"iPhone 14 Pro Max","platformVersion":"16","platformName":"ios","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"},{"deviceName":"iPhone XS","platformVersion":"15","platformName":"ios","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"},{"deviceName":"iPhone 11","platformVersion":"14","platformName":"ios","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"}],"isNonBstackA11yWDIO":false,"accessibility":false,"buildIdentifier":"${BUILD_NUMBER}","browserstackLocal":true,"app":"bs://30f346cd4173753f942013bd7517b62a49f469a3","testObservability":true,"testObservabilityOptions":{"buildTag":["bstack_sample"]},"browserStackLocalOptions":{"forcelocal":false,"localIdentifier":"webdriverio-appium-app-browserstack-repo"},"testContextOptions":{"skipSessionName":false,"skipSessionStatus":false,"sessionNameOmitTestTitle":false,"sessionNamePrependTopLevelSuiteTitle":false,"sessionNameFormat":""},"buildTag":["bstack_sample"]}
+2026-01-15T10:26:31.056Z CLI info     Should start debug utility: undefined
+2026-01-15T10:26:31.105Z CLI info [testhub:module]  [mksolanki_iKfrV9]   [d01dfb3c-237b-4076-8c22-622155eb5b5a]  Starting testhub from 48641:0
+2026-01-15T10:26:31.106Z CLI info  [mksolanki_iKfrV9]   [d01dfb3c-237b-4076-8c22-622155eb5b5a]  [PRODUCTION] Making POST request to https://sdk.browserstack.com
+2026-01-15T10:26:31.109Z CLI info  [mksolanki_iKfrV9]   [d01dfb3c-237b-4076-8c22-622155eb5b5a]  [PRODUCTION] Making GET request to https://hub.browserstack.com
+2026-01-15T10:26:31.309Z CLI info  [mksolanki_iKfrV9]   [d01dfb3c-237b-4076-8c22-622155eb5b5a]  [PRODUCTION] Making GET request to https://hub-aps.browserstack.com
+2026-01-15T10:26:31.310Z CLI info  [mksolanki_iKfrV9]   [d01dfb3c-237b-4076-8c22-622155eb5b5a]  [PRODUCTION] Making GET request to https://hub-euw.browserstack.com
+2026-01-15T10:26:31.311Z CLI info  [mksolanki_iKfrV9]   [d01dfb3c-237b-4076-8c22-622155eb5b5a]  [PRODUCTION] Making GET request to https://hub-apse.browserstack.com
+2026-01-15T10:26:32.311Z CLI info [testhub:module]  [mksolanki_iKfrV9]   [d01dfb3c-237b-4076-8c22-622155eb5b5a]  startBuild: response=isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob
+2026-01-15T10:26:32.314Z CLI info  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  [PRODUCTION] Making POST request to https://api.browserstack.com
+2026-01-15T10:26:32.752Z CLI info  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  [PRODUCTION] Making GET request to https://api.browserstack.com
+2026-01-15T10:26:33.157Z CLI error  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  error invoking callback for eventName: {}
+2026-01-15T10:26:33.157Z CLI error  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  Error: invalid percyToken=null
+    at /snapshot/browserstack-binary/cli/dist/index.js
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2026-01-15T10:26:37.425Z CLI info [appautomate:service]  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  Using app: bs://30f346cd4173753f942013bd7517b62a49f469a3
+2026-01-15T10:26:41.396Z CLI info [sdk:service]  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  Driver initialized as primary driver: platformIndex=1
+2026-01-15T10:26:41.399Z CLI info [sdk:service]  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  Driver initialized as primary driver: platformIndex=0
+2026-01-15T10:26:41.407Z CLI info [sdk:service]  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  Driver initialized as primary driver: platformIndex=2
+2026-01-15T10:27:10.109Z CLI info [testhub:request-queue-handler]  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  Added the event {
+  event_type: 'CBTSessionCreated',
+  test_run: {
+    uuid: 'e85162df-ee11-4770-a33b-9f965bf62695',
+    integrations: { browserstack: [Object] }
+  }
+} to 48641:0
+2026-01-15T10:27:10.112Z CLI info [testhub:request-queue-handler]  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  Added the event {
+  event_type: 'TestRunStarted',
+  test_run: {
+    type: 'test',
+    framework: 'WebdriverIO-mocha',
+    uuid: 'e85162df-ee11-4770-a33b-9f965bf62695',
+    name: 'should open SuaceLab app and Login',
+    body: {
+      lang: 'ecmascript',
+      code: 'async()=>{await import_home.default.clickMenuIcon();await import_home.default.clickLogin();await import_login.default.fillUsername();await import_login.default.fillPassword();(0,import_utilities.hideKeyboardByReturnPredicate)();await import_login.default.tapLogin();await import_home.default.firstItem.waitForDisplayed({timeout:3e4})}'
+    },
+    identifier: 'should open SuaceLab app and Login',
+    scope: 'SuaceLabs Android App - should open SuaceLab app and Login',
+    scopes: [ 'SuaceLabs Android App' ],
+    file_name: 'test/specs/android.spec.ts',
+    vc_filepath: 'test/specs/android.spec.ts',
+    location: 'test/specs/android.spec.ts',
+    result: 'pending',
+    duration_in_ms: null,
+    started_at: '2026-01-15T10:27:10.075Z',
+    failure: undefined,
+    failure_type: undefined,
+    failure_reason: undefined,
+    retry_of: null,
+    custom_metadata: undefined,
+    tags: [],
+    customRerunParam: { rerun_name: undefined },
+    hooks: [],
+    product_map: {
+      observability: true,
+      accessibility: false,
+      percy: false,
+      automate: false,
+      app_automate: true
+    }
+  },
+  logs: []
+} to 48641:0
+2026-01-15T10:27:10.338Z CLI info [testhub:request-queue-handler]  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  Processing batch event [
+  {
+    event_type: 'CBTSessionCreated',
+    test_run: {
+      uuid: 'e85162df-ee11-4770-a33b-9f965bf62695',
+      integrations: [Object]
+    }
+  },
+  {
+    event_type: 'TestRunStarted',
+    test_run: {
+      type: 'test',
+      framework: 'WebdriverIO-mocha',
+      uuid: 'e85162df-ee11-4770-a33b-9f965bf62695',
+      name: 'should open SuaceLab app and Login',
+      body: [Object],
+      identifier: 'should open SuaceLab app and Login',
+      scope: 'SuaceLabs Android App - should open SuaceLab app and Login',
+      scopes: [Array],
+      file_name: 'test/specs/android.spec.ts',
+      vc_filepath: 'test/specs/android.spec.ts',
+      location: 'test/specs/android.spec.ts',
+      result: 'pending',
+      duration_in_ms: null,
+      started_at: '2026-01-15T10:27:10.075Z',
+      failure: undefined,
+      failure_type: undefined,
+      failure_reason: undefined,
+      retry_of: null,
+      custom_metadata: undefined,
+      tags: [],
+      customRerunParam: [Object],
+      hooks: [],
+      product_map: [Object]
+    },
+    logs: []
+  }
+] to 48641:0
+2026-01-15T10:27:10.340Z CLI info  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  [PRODUCTION] Making POST request to https://collector-observability.browserstack.com
+2026-01-15T10:27:24.101Z CLI warn [TEST REPORTING AND ANALYTICS:webdriverio:mocha]  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  TestRunFinished: event={"test_framework_name":"WebdriverIO-mocha","test_framework_version":"9.22.0","test_logs":[],"test_hooks_finished":{},"test_hooks_started":{},"test_uuid":"e85162df-ee11-4770-a33b-9f965bf62695","test_result":"failed","test_hook_last_started":"TestFrameworkState.TEST","test_id":"SuaceLabs Android App - should open SuaceLab app and Login","test_name":"should open SuaceLab app and Login","test_code":"async()=>{await import_home.default.clickMenuIcon();await import_home.default.clickLogin();await import_login.default.fillUsername();await import_login.default.fillPassword();(0,import_utilities.hideKeyboardByReturnPredicate)();await import_login.default.tapLogin();await import_home.default.firstItem.waitForDisplayed({timeout:3e4})}","test_file_path":"test/specs/android.spec.ts","test_location":"test/specs/android.spec.ts","test_scope":"SuaceLabs Android App - should open SuaceLab app and Login","test_scopes":["SuaceLabs Android App"],"test_started_at":"2026-01-15T10:27:10.075Z","automate_session_name":"SuaceLabs Android App - should open SuaceLab app and Login","test_failure":[{"backtrace":["Can't call click on element with selector \"-ios predicate string:name == \"Login Button\"\" because element wasn't found","Error: Can't call click on element with selector \"-ios predicate string:name == \"Login Button\"\" because element wasn't found\n    at async HomePage.clickLogin (/Users/testvagrant/Manish/SwagLabs_WDIO_Appium/test/pageobjects/Android/home.screen.ts:78:9)\n    at async Context.<anonymous> (/Users/testvagrant/Manish/SwagLabs_WDIO_Appium/test/specs/android.spec.ts:34:9)"]}],"test_failure_reason":"Can't call click on element with selector \"-ios predicate string:name == \"Login Button\"\" because element wasn't found","test_failure_type":"UnhandledError","test_ended_at":"2026-01-15T10:27:24.090Z","test_hook_last_finished":"TestFrameworkState.TEST","automate_session_status":"failed","automate_session_reason":"Can't call click on element with selector \"-ios predicate string:name == \"Login Button\"\" because element wasn't found","test_deferred":true,"logs":[]}
+2026-01-15T10:27:24.103Z CLI info [testhub:request-queue-handler]  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  Added the event {
+  event_type: 'TestRunFinished',
+  test_run: {
+    type: 'test',
+    framework: 'WebdriverIO-mocha',
+    uuid: 'e85162df-ee11-4770-a33b-9f965bf62695',
+    name: 'should open SuaceLab app and Login',
+    body: {
+      lang: 'ecmascript',
+      code: 'async()=>{await import_home.default.clickMenuIcon();await import_home.default.clickLogin();await import_login.default.fillUsername();await import_login.default.fillPassword();(0,import_utilities.hideKeyboardByReturnPredicate)();await import_login.default.tapLogin();await import_home.default.firstItem.waitForDisplayed({timeout:3e4})}'
+    },
+    identifier: 'should open SuaceLab app and Login',
+    scope: 'SuaceLabs Android App - should open SuaceLab app and Login',
+    scopes: [ 'SuaceLabs Android App' ],
+    file_name: 'test/specs/android.spec.ts',
+    vc_filepath: 'test/specs/android.spec.ts',
+    location: 'test/specs/android.spec.ts',
+    result: 'failed',
+    duration_in_ms: 14015,
+    started_at: '2026-01-15T10:27:10.075Z',
+    finished_at: '2026-01-15T10:27:24.090Z',
+    failure: [ [Object] ],
+    failure_type: 'UnhandledError',
+    failure_reason: `Can't call click on element with selector "-ios predicate string:name == "Login Button"" because element wasn't found`,
+    retry_of: null,
+    custom_metadata: undefined,
+    tags: [],
+    customRerunParam: { rerun_name: undefined },
+    hooks: [],
+    product_map: {
+      observability: true,
+      accessibility: false,
+      percy: false,
+      automate: false,
+      app_automate: true
+    }
+  },
+  logs: []
+} to 48641:0
+2026-01-15T10:27:24.340Z CLI info [testhub:request-queue-handler]  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  Processing batch event [
+  {
+    event_type: 'TestRunFinished',
+    test_run: {
+      type: 'test',
+      framework: 'WebdriverIO-mocha',
+      uuid: 'e85162df-ee11-4770-a33b-9f965bf62695',
+      name: 'should open SuaceLab app and Login',
+      body: [Object],
+      identifier: 'should open SuaceLab app and Login',
+      scope: 'SuaceLabs Android App - should open SuaceLab app and Login',
+      scopes: [Array],
+      file_name: 'test/specs/android.spec.ts',
+      vc_filepath: 'test/specs/android.spec.ts',
+      location: 'test/specs/android.spec.ts',
+      result: 'failed',
+      duration_in_ms: 14015,
+      started_at: '2026-01-15T10:27:10.075Z',
+      finished_at: '2026-01-15T10:27:24.090Z',
+      failure: [Array],
+      failure_type: 'UnhandledError',
+      failure_reason: `Can't call click on element with selector "-ios predicate string:name == "Login Button"" because element wasn't found`,
+      retry_of: null,
+      custom_metadata: undefined,
+      tags: [],
+      customRerunParam: [Object],
+      hooks: [],
+      product_map: [Object]
+    },
+    logs: []
+  }
+] to 48641:0
+2026-01-15T10:27:24.341Z CLI info  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  [PRODUCTION] Making POST request to https://collector-observability.browserstack.com
+2026-01-15T10:27:30.358Z CLI info  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  [PRODUCTION] Making GET request to https://api.browserstack.com
+2026-01-15T10:27:30.365Z CLI info  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  [PRODUCTION] Making PUT request to https://collector-observability.browserstack.com
+2026-01-15T10:27:31.062Z CLI info [testhub:module]  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  stopBuild: isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob request={"finished_at":"2026-01-15T10:27:30.361Z","finished_metadata":[],"custom_metadata":null} response={"data":""}
+2026-01-15T10:27:31.064Z CLI info  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  [PRODUCTION] Making POST request to https://api.browserstack.com
+2026-01-15T10:27:31.397Z CLI info [TEST REPORTING AND ANALYTICS:module]  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  Visit https://automation.browserstack.com/builds/isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob to view build report, insights, and many more debugging information all at one place!
+2026-01-15T10:27:33.993Z CLI info [main]  [mksolanki_iKfrV9]  [isfsq6ehp7xr29chh72wgzfkz9u52sntduvu0eob]  [d01dfb3c-237b-4076-8c22-622155eb5b5a]  Received graceful signal termination, performing cleanup
+2026-01-20T11:56:18.061Z CLI info     Config : {"userName":"[REDACTED]","accessKey":"[REDACTED]","platforms":[{"deviceName":"iPhone 14 Pro Max","platformVersion":"16","platformName":"ios","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"},{"deviceName":"iPhone XS","platformVersion":"15","platformName":"ios","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"},{"deviceName":"iPhone 11","platformVersion":"14","platformName":"ios","projectName":"BrowserStack Samples","buildName":"browserstack build","sessionName":"BStack parallel webdriverio-appium","debug":true,"networkLogs":true,"source":"webdriverio:appium-sample-sdk:v1.0","wdioService":"9.22.0"}],"isNonBstackA11yWDIO":false,"accessibility":false,"buildIdentifier":"${BUILD_NUMBER}","browserstackLocal":true,"app":"bs://30f346cd4173753f942013bd7517b62a49f469a3","testObservability":true,"testObservabilityOptions":{"buildTag":["bstack_sample"]},"browserStackLocalOptions":{"forcelocal":false,"localIdentifier":"webdriverio-appium-app-browserstack-repo"},"testContextOptions":{"skipSessionName":false,"skipSessionStatus":false,"sessionNameOmitTestTitle":false,"sessionNamePrependTopLevelSuiteTitle":false,"sessionNameFormat":""},"buildTag":["bstack_sample"]}
+2026-01-20T11:56:18.069Z CLI info     Should start debug utility: undefined
+2026-01-20T11:56:18.136Z CLI info [testhub:module]  [mksolanki_iKfrV9]   [958580ee-7100-46d8-aceb-eb64f3d81e47]  Starting testhub from 86490:0
+2026-01-20T11:56:18.138Z CLI info  [mksolanki_iKfrV9]   [958580ee-7100-46d8-aceb-eb64f3d81e47]  [PRODUCTION] Making POST request to https://sdk.browserstack.com
+2026-01-20T11:56:18.139Z CLI info  [mksolanki_iKfrV9]   [958580ee-7100-46d8-aceb-eb64f3d81e47]  [PRODUCTION] Making GET request to https://hub.browserstack.com
+2026-01-20T11:56:18.315Z CLI info  [mksolanki_iKfrV9]   [958580ee-7100-46d8-aceb-eb64f3d81e47]  [PRODUCTION] Making GET request to https://hub-aps.browserstack.com
+2026-01-20T11:56:18.317Z CLI info  [mksolanki_iKfrV9]   [958580ee-7100-46d8-aceb-eb64f3d81e47]  [PRODUCTION] Making GET request to https://hub-euw.browserstack.com
+2026-01-20T11:56:18.318Z CLI info  [mksolanki_iKfrV9]   [958580ee-7100-46d8-aceb-eb64f3d81e47]  [PRODUCTION] Making GET request to https://hub-apse.browserstack.com
+2026-01-20T11:56:19.409Z CLI info [testhub:module]  [mksolanki_iKfrV9]   [958580ee-7100-46d8-aceb-eb64f3d81e47]  startBuild: response=qukxq8a2smu2kbb8etjwh34muv0mruznm0mlx9mb
+2026-01-20T11:56:19.413Z CLI info  [mksolanki_iKfrV9]  [qukxq8a2smu2kbb8etjwh34muv0mruznm0mlx9mb]  [958580ee-7100-46d8-aceb-eb64f3d81e47]  [PRODUCTION] Making POST request to https://api.browserstack.com
+2026-01-20T11:56:19.825Z CLI info  [mksolanki_iKfrV9]  [qukxq8a2smu2kbb8etjwh34muv0mruznm0mlx9mb]  [958580ee-7100-46d8-aceb-eb64f3d81e47]  [PRODUCTION] Making GET request to https://api.browserstack.com
+2026-01-20T11:56:20.238Z CLI error  [mksolanki_iKfrV9]  [qukxq8a2smu2kbb8etjwh34muv0mruznm0mlx9mb]  [958580ee-7100-46d8-aceb-eb64f3d81e47]  error invoking callback for eventName: {}
+2026-01-20T11:56:20.239Z CLI error  [mksolanki_iKfrV9]  [qukxq8a2smu2kbb8etjwh34muv0mruznm0mlx9mb]  [958580ee-7100-46d8-aceb-eb64f3d81e47]  Error: invalid percyToken=null
+    at /snapshot/browserstack-binary/cli/dist/index.js
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2026-01-20T11:56:24.238Z CLI info [appautomate:service]  [mksolanki_iKfrV9]  [qukxq8a2smu2kbb8etjwh34muv0mruznm0mlx9mb]  [958580ee-7100-46d8-aceb-eb64f3d81e47]  Using app: bs://30f346cd4173753f942013bd7517b62a49f469a3
+2026-01-20T11:56:27.706Z CLI info [sdk:service]  [mksolanki_iKfrV9]  [qukxq8a2smu2kbb8etjwh34muv0mruznm0mlx9mb]  [958580ee-7100-46d8-aceb-eb64f3d81e47]  Driver initialized as primary driver: platformIndex=2
+2026-01-20T11:56:27.709Z CLI info [sdk:service]  [mksolanki_iKfrV9]  [qukxq8a2smu2kbb8etjwh34muv0mruznm0mlx9mb]  [958580ee-7100-46d8-aceb-eb64f3d81e47]  Driver initialized as primary driver: platformIndex=0
+2026-01-20T11:56:27.716Z CLI info [sdk:service]  [mksolanki_iKfrV9]  [qukxq8a2smu2kbb8etjwh34muv0mruznm0mlx9mb]  [958580ee-7100-46d8-aceb-eb64f3d81e47]  Driver initialized as primary driver: platformIndex=1
+2026-01-20T11:56:49.053Z CLI info [main]  [mksolanki_iKfrV9]  [qukxq8a2smu2kbb8etjwh34muv0mruznm0mlx9mb]  [958580ee-7100-46d8-aceb-eb64f3d81e47]  Received graceful signal termination, performing cleanup

@@ -1,17 +1,28 @@
 import { BasePage } from "./basePage";
 
-class HomePage extends BasePage {
-    get addToCart() {
-        return $('android=new UiSelector().text("ADD TO CART")');
-
+export class HomePage extends BasePage {
+    get firstItem() {
+        return  $('-ios predicate string:label == "Sauce Labs Backpack - Black"');
     }
 
-    get cartIcon() {
-
-        return $('//android.view.ViewGroup[@content-desc="test-Cart"]//android.widget.ImageView');
+     get swipeItem() {
+        return  $('-ios predicate string:name == "Sauce Labs Backpack - Violet"');
     }
 
-
+    get menuIcon() {
+        
+        return  $('-ios predicate string:name == "Menu Icons"');
+    }
+    get logOut() {
+        
+        return  $('-ios predicate string:name == "LogOut-menu-item"');
+    }
+     get logIn() {
+        
+        return  $('-ios predicate string:name == "Login Button"');
+    }
+    
+        
      get menu() {
         return $('~test-Menu');
 
@@ -52,11 +63,11 @@ class HomePage extends BasePage {
         return $('~test-GO TO SITE')
     }
 
-    async tapAddToCartBtn() {
-        await this.addToCart.click();
+    async clickFirstItem() {
+        await this.firstItem.click();
     }
-    async clickAddToCartIcon() {
-        await this.cartIcon.click();
+    async clickMenuIcon() {
+        await this.menuIcon.click();
     }
     async clickMenuBtn()
     {
@@ -66,9 +77,13 @@ class HomePage extends BasePage {
     {
         await this.drawingSection.click()
     }
-    async changelayout()
+    async clickLogin()
     {
-        await this.toggleLayout.click()
+        await this.logIn.click()
+    }
+    async clickLogOut()
+    {
+        await this.logOut.click()
     }
     async verifyChangedLayout()
     {

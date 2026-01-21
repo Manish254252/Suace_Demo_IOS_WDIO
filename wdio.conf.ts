@@ -1,12 +1,12 @@
+
 import path = require("path");
 
 export const config: WebdriverIO.Config = {
     runner: 'local',
 
-    // 🔑 Appium 2.x base path
     hostname: '127.0.0.1',
     port: 4723,
-    path: '/',   // ❗ NOT /wd/hub
+    path: '/', // Appium 2.x
 
     specs: ['./test/specs/**/*.ts'],
 
@@ -22,33 +22,23 @@ export const config: WebdriverIO.Config = {
     ],
 
     capabilities: [{
-        platformName: 'Android',
-        'appium:deviceName': 'emulator-5554',
-        'appium:automationName': 'UiAutomator2',
-
-        // APK
-        'appium:app': path.resolve(__dirname, 'apps/SauceLabs.app.2.7.1.apk'),
-       
-        'appium:appActivity': '.SplashActivity',
-
-
-        // Stability flags
-        'appium:autoGrantPermissions': true,
-        'appium:ignoreHiddenApiPolicyError': true,
+        platformName: 'iOS',
+        'appium:automationName': 'XCUITest',
+        'appium:deviceName': 'iPhone 17',              // Simulator name
+        'appium:platformVersion': '26.2',             // Simulator iOS version
+        'appium:udid': '7F38DA72-BA59-458D-B586-E8FC3805657E',        // From `xcrun simctl list devices`
+        'appium:app': 'apps/My Demo App.app', // .app file for simulator
         'appium:noReset': true,
         'appium:fullReset': false,
-
-        // ⏱ CI-safe timeouts
-        'appium:adbExecTimeout': 180000,                     // 3 minutes
-        'appium:uiautomator2ServerInstallTimeout': 300000,   // 5 minutes
         'appium:newCommandTimeout': 300,
     }],
 
     connectionRetryTimeout: 300000,
+   
     connectionRetryCount: 3,
 
     mochaOpts: {
-        timeout: 120000 // 2 minutes per test
+        timeout: 120000
     },
 
     reporters: [
