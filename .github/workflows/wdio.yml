@@ -80,7 +80,7 @@ jobs:
         run: |
           echo "Starting Appium..."
           appium --log-level error &
-          sleep 15
+          sleep 35
 
       # 8️⃣ Run WDIO tests
       - name: Run WDIO tests
