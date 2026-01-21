@@ -41,14 +41,22 @@ jobs:
       # 6️⃣ Boot a valid iOS Simulator dynamically
       - name: Boot iOS Simulator
         run: |
-          echo "Available simulators:"
-          xcrun simctl list devices available
+          TARGET_DEVICE="iPhone 17"
+          TARGET_OS="iOS 26.2"
 
-          # Pick the first available iPhone simulator
-          SIM_UDID=$(xcrun simctl list devices available | grep "iPhone" | grep -v "unavailable" | head -n1 | awk -F '[()]' '{print $2}')
+          echo "Looking for $TARGET_DEVICE running $TARGET_OS..."
+
+          # Find UDID of the matching simulator
+          SIM_UDID=$(xcrun simctl list devices | awk -v device="$TARGET_DEVICE" -v os="$TARGET_OS" '
+            $0 ~ os && getline && $0 ~ device {match($0, /\(([A-F0-9-]+)\)/, m); print m[1]; exit}
+          ')
+
+          if [ -z "$SIM_UDID" ]; then
+            echo "❌ No simulator found for $TARGET_DEVICE on $TARGET_OS"
+            exit 1
+          fi
+
           echo "Booting simulator with UDID: $SIM_UDID"
-
-          # Boot simulator (ignore if already booted)
           xcrun simctl boot "$SIM_UDID" || true
 
           # Launch Simulator app
@@ -65,7 +73,8 @@ jobs:
               exit 1
             fi
           done
-          echo "Simulator is ready!"
+
+          echo "Simulator $TARGET_DEVICE on $TARGET_OS is ready!"
 
       # 7️⃣ Start Appium server
       - name: Start Appium Server
