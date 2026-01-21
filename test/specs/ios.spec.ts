@@ -66,7 +66,7 @@ describe('SuaceLabs Android App', () => {
         await new CheckoutPage().goToPayment();
     })
 
-    it.only('Change Toggle', async () => {
+    it('Change Toggle', async () => {
 
         await homePage.clickMenuIcon();
         await homePage.clickLogin();
