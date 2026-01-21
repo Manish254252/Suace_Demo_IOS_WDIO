@@ -42,6 +42,7 @@ jobs:
       # 6️⃣ Start iOS Simulator
       - name: Boot iOS Simulator
         run: |
+          xcrun simctl list devices
           xcrun simctl boot "iPhone 14" || true
           open -a Simulator
           sleep 30
