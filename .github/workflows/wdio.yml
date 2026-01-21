@@ -36,7 +36,7 @@ jobs:
       # 5️⃣ Install iOS Appium driver
       - name: Install Appium XCUITest driver
         run: |
-          appium driver install xcuitest
+          appium driver update xcuitest
           appium driver list
 
       # 6️⃣ Start iOS Simulator

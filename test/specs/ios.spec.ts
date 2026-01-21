@@ -1,10 +1,9 @@
 import { expect } from '@wdio/globals'
-import loginPage from '../pageobjects/Android/login.Screen'
-import homePage from '../pageobjects/Android/home.screen'
-import { hideKeyboardByReturnPredicate } from '../../utils/utilities';
-import { ItemScreen } from '../pageobjects/Android/item.screen';
-import { CheckoutPage } from '../pageobjects/Android/checkout';
-import homeScreen from '../pageobjects/Android/home.screen';
+import loginPage from '../pageobjects/IOS/login.Screen'
+import homePage from '../pageobjects/IOS/home.screen'
+import { ItemScreen } from '../pageobjects/IOS/item.screen';
+import { CheckoutPage } from '../pageobjects/IOS/checkout';
+
 
 
 beforeEach(async () => {

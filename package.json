@@ -14,7 +14,7 @@
   "type": "commonjs",
   "devDependencies": {
     "@types/node": "^25.0.3",
-    "@wdio/allure-reporter": "^9.22.0",
+    "@wdio/allure-reporter": "^9.23.2",
     "@wdio/appium-service": "^9.23.0",
     "@wdio/browserstack-service": "^9.23.0",
     "@wdio/cli": "^9.23.0",
@@ -23,6 +23,7 @@
     "@wdio/mocha-framework": "^9.23.0",
     "@wdio/spec-reporter": "^9.20.0",
     "@wdio/visual-service": "^9.1.0",
+    "allure-commandline": "^2.36.0",
     "appium": "^2.19.0",
     "appium-chromedriver": "^8.2.1",
     "appium-uiautomator2-driver": "^6.7.8",

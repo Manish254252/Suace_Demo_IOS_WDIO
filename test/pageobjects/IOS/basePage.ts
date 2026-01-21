@@ -1,4 +1,5 @@
-import homeScreen, { HomePage } from "./home.screen";
+import homeScreen from "./home.screen";
+
 
 
 export class BasePage {
@@ -127,7 +128,7 @@ export class BasePage {
  * @param {'WEBVIEW' | 'NATIVE_APP'} target
  * @param {number} timeout
  */
- async  switchContext(target = 'WEBVIEW', timeout = 15000) {
+ async  switchContext(target = 'WEBVIEW') {
     console.log(await driver.getContexts())
   if (target === 'NATIVE_APP') {
     await driver.switchContext('NATIVE_APP');
