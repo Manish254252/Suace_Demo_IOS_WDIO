@@ -46,7 +46,7 @@ jobs:
 
           echo "Looking for $TARGET_DEVICE running $TARGET_OS..."
 
-          # Find UDID of matching simulator (BSD/macOS-compatible)
+          # Find UDID of matching simulator
           SIM_UDID=$(xcrun simctl list devices | grep "$TARGET_OS" -A 100 | grep "$TARGET_DEVICE" | head -n 1 | sed -E 's/.*\(([A-F0-9-]+)\).*/\1/')
 
           if [ -z "$SIM_UDID" ]; then
@@ -56,11 +56,9 @@ jobs:
 
           echo "Booting simulator with UDID: $SIM_UDID"
           xcrun simctl boot "$SIM_UDID" || true
-
-          # Launch Simulator app
           open -a Simulator
 
-          # Wait until the simulator is fully booted
+          # Wait until fully booted
           n=0
           until xcrun simctl list | grep "$SIM_UDID" | grep Booted; do
             echo "Waiting for simulator to boot..."
@@ -74,6 +72,9 @@ jobs:
 
           echo "Simulator $TARGET_DEVICE on $TARGET_OS is ready!"
 
+          # Pass UDID to next steps
+          echo "SIM_UDID=$SIM_UDID" >> $GITHUB_ENV
+
       # 7️⃣ Start Appium server
       - name: Start Appium Server
         run: |
@@ -84,6 +85,8 @@ jobs:
       # 8️⃣ Run WDIO tests
       - name: Run WDIO tests
         run: npx wdio run wdio.conf.ts
+        env:
+          SIM_UDID: ${{ env.SIM_UDID }}   # Pass the booted simulator UDID
 
       # 9️⃣ Upload logs / reports
       - name: Upload WDIO Reports
