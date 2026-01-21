@@ -26,7 +26,8 @@ export const config: WebdriverIO.Config = {
         'appium:automationName': 'XCUITest',
         'appium:deviceName': 'iPhone 17',              // Simulator name
         'appium:platformVersion': '26.2',             // Simulator iOS version
-        'appium:udid': '7F38DA72-BA59-458D-B586-E8FC3805657E',        // From `xcrun simctl list devices`
+        'appium:udid': process.env.SIM_UDID || '7F38DA72-BA59-458D-B586-E8FC3805657E',        // From `xcrun simctl list devices`
+        
         'appium:app': 'apps/My Demo App.app', // .app file for simulator
         'appium:noReset': true,
         'appium:fullReset': false,
