@@ -38,7 +38,7 @@ jobs:
           appium driver update xcuitest
           appium driver list
 
-      # 6️⃣ Boot a valid iOS Simulator dynamically
+      # 6️⃣ Boot iOS Simulator (iPhone 17 iOS 26.2)
       - name: Boot iOS Simulator
         run: |
           TARGET_DEVICE="iPhone 17"
@@ -46,10 +46,8 @@ jobs:
 
           echo "Looking for $TARGET_DEVICE running $TARGET_OS..."
 
-          # Find UDID of the matching simulator
-          SIM_UDID=$(xcrun simctl list devices | awk -v device="$TARGET_DEVICE" -v os="$TARGET_OS" '
-            $0 ~ os && getline && $0 ~ device {match($0, /\(([A-F0-9-]+)\)/, m); print m[1]; exit}
-          ')
+          # Find UDID of matching simulator (BSD/macOS-compatible)
+          SIM_UDID=$(xcrun simctl list devices | grep "$TARGET_OS" -A 100 | grep "$TARGET_DEVICE" | head -n 1 | sed -E 's/.*\(([A-F0-9-]+)\).*/\1/')
 
           if [ -z "$SIM_UDID" ]; then
             echo "❌ No simulator found for $TARGET_DEVICE on $TARGET_OS"
@@ -67,8 +65,8 @@ jobs:
           until xcrun simctl list | grep "$SIM_UDID" | grep Booted; do
             echo "Waiting for simulator to boot..."
             sleep 5
-            ((n++))
-            if [ $n -gt 12 ]; then
+            ((n+=5))
+            if [ $n -gt 60 ]; then
               echo "Simulator failed to boot in 60 seconds"
               exit 1
             fi
@@ -79,6 +77,7 @@ jobs:
       # 7️⃣ Start Appium server
       - name: Start Appium Server
         run: |
+          echo "Starting Appium..."
           appium --log-level error &
           sleep 15
 
