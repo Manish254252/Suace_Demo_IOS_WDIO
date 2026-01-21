@@ -64,7 +64,7 @@ jobs:
             echo "Waiting for simulator to boot..."
             sleep 5
             ((n+=5))
-            if [ $n -gt 60 ]; then
+            if [ $n -gt 160 ]; then
               echo "Simulator failed to boot in 60 seconds"
               exit 1
             fi

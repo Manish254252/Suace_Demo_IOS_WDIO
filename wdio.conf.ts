@@ -31,6 +31,7 @@ export const config: WebdriverIO.Config = {
         'appium:app': 'apps/My Demo App.app', // .app file for simulator
         'appium:noReset': true,
         'appium:fullReset': false,
+        'appium:wdaLaunchTimeout': 120000,
         'appium:newCommandTimeout': 300,
     }],
 
