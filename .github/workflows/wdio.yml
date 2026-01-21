@@ -8,7 +8,6 @@ on:
 jobs:
   ios-tests:
     runs-on: macos-latest
-
     timeout-minutes: 60
 
     steps:
@@ -33,19 +32,40 @@ jobs:
           npm install -g appium
           appium -v
 
-      # 5️⃣ Install iOS Appium driver
+      # 5️⃣ Install Appium XCUITest driver
       - name: Install Appium XCUITest driver
         run: |
           appium driver update xcuitest
           appium driver list
 
-      # 6️⃣ Start iOS Simulator
+      # 6️⃣ Boot a valid iOS Simulator dynamically
       - name: Boot iOS Simulator
         run: |
-          xcrun simctl list devices
-          xcrun simctl boot "iPhone 14" || true
+          echo "Available simulators:"
+          xcrun simctl list devices available
+
+          # Pick the first available iPhone simulator
+          SIM_UDID=$(xcrun simctl list devices available | grep "iPhone" | grep -v "unavailable" | head -n1 | awk -F '[()]' '{print $2}')
+          echo "Booting simulator with UDID: $SIM_UDID"
+
+          # Boot simulator (ignore if already booted)
+          xcrun simctl boot "$SIM_UDID" || true
+
+          # Launch Simulator app
           open -a Simulator
-          sleep 30
+
+          # Wait until the simulator is fully booted
+          n=0
+          until xcrun simctl list | grep "$SIM_UDID" | grep Booted; do
+            echo "Waiting for simulator to boot..."
+            sleep 5
+            ((n++))
+            if [ $n -gt 12 ]; then
+              echo "Simulator failed to boot in 60 seconds"
+              exit 1
+            fi
+          done
+          echo "Simulator is ready!"
 
       # 7️⃣ Start Appium server
       - name: Start Appium Server
@@ -57,7 +77,7 @@ jobs:
       - name: Run WDIO tests
         run: npx wdio run wdio.conf.ts
 
-      # 9️⃣ Upload logs / reports (optional but recommended)
+      # 9️⃣ Upload logs / reports
       - name: Upload WDIO Reports
         if: always()
         uses: actions/upload-artifact@v4
