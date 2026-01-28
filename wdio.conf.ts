@@ -1,8 +1,13 @@
 
-import path = require("path");
+
 
 export const config: WebdriverIO.Config = {
     runner: 'local',
+    framework: 'mocha',
+    mochaOpts: {
+        
+        timeout: 900000, // Increase to 5 minutes (300,000 ms)
+    },
 
     hostname: '127.0.0.1',
     port: 4723,
@@ -16,7 +21,7 @@ export const config: WebdriverIO.Config = {
             args: {
                 address: '127.0.0.1',
                 port: 4723,
-                logLevel: 'info',
+                logLevel: 'error',
             }
         }]
     ],
@@ -28,7 +33,7 @@ export const config: WebdriverIO.Config = {
         'appium:platformVersion': '26.2',             // Simulator iOS version
         'appium:udid': process.env.SIM_UDID || '7F38DA72-BA59-458D-B586-E8FC3805657E',        // From `xcrun simctl list devices`
         
-        'appium:app': 'apps/My Demo App.app', // .app file for simulator
+     
         'appium:noReset': true,
         'appium:fullReset': false,
         'appium:wdaLaunchTimeout': 120000,
@@ -38,10 +43,6 @@ export const config: WebdriverIO.Config = {
     connectionRetryTimeout: 300000,
    
     connectionRetryCount: 3,
-
-    mochaOpts: {
-        timeout: 120000
-    },
 
     reporters: [
         'spec',
